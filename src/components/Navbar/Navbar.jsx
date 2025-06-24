@@ -1,0 +1,179 @@
+import React, { use, useEffect, useState } from "react";
+import { FaBars, FaXmark } from "react-icons/fa6";
+import { Link, NavLink } from "react-router";
+import Swal from "sweetalert2";
+import { themeChange } from "theme-change";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+
+const Navbar = () => {
+  const { user, logOut } = use(AuthContext) || AuthContext;
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    themeChange(false); // false for React project
+  }, []);
+
+  const handleThemeChange = (e) => {
+    const newTheme = e.target.checked ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          title: "Logout successful!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: "Something is wrong.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      });
+  };
+
+  const navLinks = (
+    <>
+      <li>
+        <NavLink className="font-medium" to="/">
+          Home
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink className="font-medium" to="/assignments">
+          Assignments
+        </NavLink>
+      </li>
+
+      {user && (
+        <li>
+          <NavLink className="font-medium" to="/pending-assignments">
+            Pending Assignments
+          </NavLink>
+        </li>
+      )}
+      {/* <li>
+        <NavLink className="text-lg font-medium" to="/create-assignment">
+          Create Assignment
+        </NavLink>
+      </li> */}
+    </>
+  );
+
+  return (
+    <div className="navbar bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 lg:w-10/12 rounded-md px-4 lg:px-5">
+      <div className="navbar-start">
+        <div className="relative md:hidden">
+          <button
+            onClick={toggleMenu}
+            className="transition-transform duration-300 ease-in-out relative w-6 h-6 flex text-secondary"
+          >
+            <div
+              className="absolute inset-0 transition-all duration-300 ease-in-out transform"
+              style={{ opacity: isOpen ? 0 : 1, transform: "rotate(0deg)" }}
+            >
+              <FaBars className="w-full h-full" />
+            </div>
+            <div
+              className="absolute inset-0 transition-all duration-300 ease-in-out transform"
+              style={{
+                opacity: isOpen ? 1 : 0,
+                transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
+              }}
+            >
+              <FaXmark className="w-full h-full" />
+            </div>
+          </button>
+
+          {isOpen && (
+            <ul className="absolute left-0 z-10 mt-6 w-52 rounded-box bg-base-100 p-2 shadow menu menu-sm">
+              {navLinks}
+            </ul>
+          )}
+        </div>
+
+        <Link to="/" className="flex items-center">
+          <img
+            className="w-10 mr-2 hidden md:flex"
+            src="https://s14.gifyu.com/images/bHmBS.png"
+            alt="Logo"
+          />
+          <span className="hidden md:flex text-3xl font-bold text-secondary">
+            BhuGoal
+          </span>
+        </Link>
+      </div>
+
+      <div className="navbar-center hidden md:flex">
+        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+      </div>
+
+      <div className="navbar-end flex items-center gap-3">
+        {/* theme toggle button */}
+        <input
+          name="theme-btn"
+          type="checkbox"
+          onChange={handleThemeChange}
+          defaultChecked={localStorage.getItem("theme") === "dark"}
+          className="toggle toggle-secondary"
+        />
+
+        {user ? (
+          <>
+            <div
+              data-tooltip-id="user-tooltip"
+              data-tooltip-content={user?.displayName || "Guest"}
+              className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer"
+            >
+              <img
+                src={
+                  user?.photoURL ||
+                  "https://i.ibb.co.com/Cs13Xyvv/icons8-avatar-96.png"
+                }
+                className="w-full h-full object-cover"
+                alt="User Avatar"
+              />
+            </div>
+            <Tooltip id="user-tooltip" place="bottom" />
+
+            <div onClick={handleLogout} className="text-secondary">
+              <button className="hidden md:flex btn btn-outline btn-secondary">
+                Logout
+              </button>
+              <FiLogOut size={25} className="md:hidden" />
+            </div>
+          </>
+        ) : (
+          !["/auth"].includes(location.pathname) && (
+            <div className="flex gap-2">
+              <Link
+                to="/auth?mode=login"
+                className="btn btn-outline btn-secondary"
+              >
+                Login
+              </Link>
+              <Link
+                to="/auth?mode=register"
+                className="btn btn-outline btn-secondary hidden md:flex"
+              >
+                Register
+              </Link>
+            </div>
+          )
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
