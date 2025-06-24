@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
+import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 
 const RegisterForm = () => {
+  const { register, googleLogin } = use(AuthContext);
+
   const [ShowPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
@@ -14,10 +17,25 @@ const RegisterForm = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    console.log(name, email, password, photo);
+    // console.log(name, email, password, photo);
+    register(email, password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((res) => {
+        console.log("gugul login successful!", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleGithubLogin = () => {};
   const handleFacebookLogin = () => {};
   return (

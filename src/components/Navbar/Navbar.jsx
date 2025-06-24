@@ -4,9 +4,11 @@ import { Link, NavLink } from "react-router";
 import Swal from "sweetalert2";
 import { themeChange } from "theme-change";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import { FiLogOut } from "react-icons/fi";
+import { RxAvatar } from "react-icons/rx";
 
 const Navbar = () => {
-  const { user, logOut } = use(AuthContext) || AuthContext;
+  const { user, logout } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -21,7 +23,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    logOut()
+    logout()
       .then(() => {
         Swal.fire({
           title: "Logout successful!",
@@ -135,16 +137,18 @@ const Navbar = () => {
               data-tooltip-content={user?.displayName || "Guest"}
               className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer"
             >
-              <img
-                src={
-                  user?.photoURL ||
-                  "https://i.ibb.co.com/Cs13Xyvv/icons8-avatar-96.png"
-                }
-                className="w-full h-full object-cover"
-                alt="User Avatar"
-              />
+              {user?.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  className="w-full h-full object-cover"
+                  alt="User Avatar"
+                />
+              ) : (
+                <RxAvatar className="w-full h-full" />
+              )}
             </div>
-            <Tooltip id="user-tooltip" place="bottom" />
+
+            {/* <Tooltip id="user-tooltip" place="bottom" /> */}
 
             <div onClick={handleLogout} className="text-secondary">
               <button className="hidden md:flex btn btn-outline btn-secondary">
