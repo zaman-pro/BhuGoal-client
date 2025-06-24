@@ -18,7 +18,7 @@ const LoginForm = () => {
 
     login(email, password)
       .then((res) => {
-        toast.success("Login successful!");
+        toast.success("Successfully Login");
       })
       .catch((err) => {
         console.log(err);

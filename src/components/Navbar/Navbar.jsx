@@ -20,6 +20,9 @@ const Navbar = () => {
     const newTheme = e.target.checked ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
+
+    // theme change update
+    window.dispatchEvent(new Event("themeChange"));
   };
 
   const handleLogout = () => {
