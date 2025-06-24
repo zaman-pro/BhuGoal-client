@@ -1,11 +1,11 @@
 import React, { use, useEffect, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { Link, NavLink } from "react-router";
-import Swal from "sweetalert2";
 import { themeChange } from "theme-change";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { RxAvatar } from "react-icons/rx";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logout } = use(AuthContext);
@@ -28,21 +28,11 @@ const Navbar = () => {
   const handleLogout = () => {
     logout()
       .then(() => {
-        Swal.fire({
-          title: "Logout successful!",
-          icon: "success",
-          timer: 1500,
-          showConfirmButton: false,
-        });
+        toast.success("Logout successful");
       })
-      .catch((error) => {
-        console.log(error);
-        Swal.fire({
-          title: "Something is wrong.",
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
+      .catch((err) => {
+        console.log(err);
+        toast.error("Logout failed. Please try again");
       });
   };
 

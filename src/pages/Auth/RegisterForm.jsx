@@ -3,9 +3,11 @@ import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import toast from "react-hot-toast";
 
 const RegisterForm = () => {
-  const { register, googleLogin } = use(AuthContext);
+  const { register, googleLogin, passwordRegex, updateUser, setUser } =
+    use(AuthContext);
 
   const [ShowPassword, setShowPassword] = useState(false);
 
@@ -17,23 +19,40 @@ const RegisterForm = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    // console.log(name, email, password, photo);
+    if (!passwordRegex.test(password)) {
+      toast.error("Use at least 6 letters with upper & lower case");
+      return;
+    }
+
     register(email, password)
-      .then((result) => {
-        console.log(result);
+      .then((res) => {
+        const user = res.user;
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+
+            toast.success("Account created successfully");
+          })
+          .catch((err) => {
+            console.log(err);
+            setUser(user);
+            toast.error("Profile update failed. Please try again.");
+          });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
+        toast.error("Unable to create account");
       });
   };
 
   const handleGoogleLogin = () => {
     googleLogin()
-      .then((res) => {
-        console.log("gugul login successful!", res);
+      .then(() => {
+        toast.success("Google login successful");
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Google login failed");
       });
   };
   const handleGithubLogin = () => {};

@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
@@ -38,6 +39,17 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // password validate
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+  // update user
+  const updateUser = (updatedData) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, updatedData).finally(() => {
+      setLoading(false);
+    });
+  };
+
   // manage users
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -49,7 +61,16 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const authData = { user, register, googleLogin, login, logout };
+  const authData = {
+    user,
+    setUser,
+    register,
+    updateUser,
+    googleLogin,
+    login,
+    logout,
+    passwordRegex,
+  };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };
 
