@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
   const { login } = use(AuthContext);
@@ -17,7 +18,7 @@ const LoginForm = () => {
 
     login(email, password)
       .then((res) => {
-        console.log(res);
+        toast.success("Login successful!");
       })
       .catch((err) => {
         console.log(err);
