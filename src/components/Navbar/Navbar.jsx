@@ -20,6 +20,18 @@ const Navbar = () => {
     themeChange(false); // false for React project
   }, []);
 
+  // tooltip theme change
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const updateTheme = () => {
+      setTheme(localStorage.getItem("theme") || "light");
+    };
+
+    window.addEventListener("themeChange", updateTheme);
+    return () => window.removeEventListener("themeChange", updateTheme);
+  }, []);
+
   const handleThemeChange = (e) => {
     const newTheme = e.target.checked ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", newTheme);
@@ -135,7 +147,15 @@ const Navbar = () => {
               )}
             </div>
 
-            <Tooltip id="user-tooltip" place="bottom" />
+            <Tooltip
+              id="user-tooltip"
+              place="bottom"
+              key={theme}
+              style={{
+                backgroundColor: theme === "dark" ? "#f3f4f6" : "#1f2937",
+                color: theme === "dark" ? "#111827" : "#f9fafb",
+              }}
+            />
 
             <div onClick={handleLogout} className="text-secondary">
               <button className="hidden md:flex btn btn-outline btn-secondary">
