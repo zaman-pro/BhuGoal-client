@@ -6,6 +6,8 @@ import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { RxAvatar } from "react-icons/rx";
 import toast from "react-hot-toast";
+import NavLinks from "../NavLinks/NavLinks";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const { user, logout } = use(AuthContext);
@@ -38,34 +40,29 @@ const Navbar = () => {
       });
   };
 
-  const navLinks = (
-    <>
-      <li>
-        <NavLink className="font-medium" to="/">
-          Home
-        </NavLink>
-      </li>
+  // const navLinks = (
+  //   <>
+  //     <li>
+  //       <NavLink className="font-medium" to="/">
+  //         Home
+  //       </NavLink>
+  //     </li>
 
-      <li>
-        <NavLink className="font-medium" to="/assignments">
-          Assignments
-        </NavLink>
-      </li>
+  //     <li>
+  //       <NavLink className="font-medium" to="/assignments">
+  //         Assignments
+  //       </NavLink>
+  //     </li>
 
-      {user && (
-        <li>
-          <NavLink className="font-medium" to="/pending-assignments">
-            Pending Assignments
-          </NavLink>
-        </li>
-      )}
-      {/* <li>
-        <NavLink className="text-lg font-medium" to="/create-assignment">
-          Create Assignment
-        </NavLink>
-      </li> */}
-    </>
-  );
+  //     {user && (
+  //       <li>
+  //         <NavLink className="font-medium" to="/pending-assignments">
+  //           Pending Assignments
+  //         </NavLink>
+  //       </li>
+  //     )}
+  //   </>
+  // );
 
   return (
     <div className="navbar bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 lg:w-10/12 rounded-md px-4 lg:px-5">
@@ -92,11 +89,19 @@ const Navbar = () => {
             </div>
           </button>
 
-          {isOpen && (
-            <ul className="absolute left-0 z-10 mt-6 w-52 rounded-box bg-base-100 p-2 shadow menu menu-sm">
-              {navLinks}
-            </ul>
-          )}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.ul
+                className="absolute left-0 z-10 mt-6 w-52 rounded-box bg-base-100 p-2 shadow menu menu-sm"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+              >
+                <NavLinks user={user} onLinkClick={() => setIsOpen(false)} />
+              </motion.ul>
+            )}
+          </AnimatePresence>
         </div>
 
         <Link to="/" className="flex items-center">
@@ -112,7 +117,10 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-center hidden md:flex">
-        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+        <ul className="menu menu-horizontal px-1">
+          {/* {navLinks} */}
+          <NavLinks user={user} />
+        </ul>
       </div>
 
       <div className="navbar-end flex items-center gap-3">
