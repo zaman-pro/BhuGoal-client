@@ -8,6 +8,7 @@ import { RxAvatar } from "react-icons/rx";
 import toast from "react-hot-toast";
 import NavLinks from "../NavLinks/NavLinks";
 import { AnimatePresence, motion } from "motion/react";
+
 const Navbar = () => {
   const { user, logout } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
