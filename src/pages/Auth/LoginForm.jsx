@@ -16,12 +16,17 @@ const LoginForm = () => {
     const email = form.email.value;
     const password = form.password.value;
 
+    // Show loading toast
+    const toastId = "loginToast";
+    toast.loading("Logging in", { id: toastId });
+
     login(email, password)
-      .then((res) => {
-        toast.success("Logged in successfully");
+      .then(() => {
+        toast.success("Logged in successfully", { id: toastId });
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Login failed. Please try again.", { id: toastId });
       });
   };
 

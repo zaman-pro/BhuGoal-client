@@ -26,13 +26,15 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    const toastId = toast.loading("Logging out");
+
     logout()
       .then(() => {
-        toast.success("Logout successful");
+        toast.success("Logout successful", { id: toastId });
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Logout failed. Please try again");
+        toast.error("Logout failed. Please try again", { id: toastId });
       });
   };
 

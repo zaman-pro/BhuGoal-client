@@ -13,6 +13,7 @@ const RegisterForm = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
     const form = e.target;
     const photo = form.photo.value;
     const name = form.name.value;
@@ -20,9 +21,15 @@ const RegisterForm = () => {
     const password = form.password.value;
 
     if (!passwordRegex.test(password)) {
-      toast.error("Use at least 6 letters with upper & lower case");
+      toast.error("Use at least 6 letters with upper & lower case", {
+        id: "password-error",
+      });
       return;
     }
+
+    // Show loading toast
+    const toastId = "registerToast";
+    toast.loading("Creating account", { id: toastId });
 
     register(email, password)
       .then((res) => {
@@ -31,17 +38,25 @@ const RegisterForm = () => {
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
 
-            toast.success("Account created successfully");
+            toast.success("Account created successfully", {
+              id: toastId,
+            });
           })
           .catch((err) => {
             console.log(err);
             setUser(user);
-            toast.error("Profile update failed. Please try again.");
+
+            toast.error("Profile update failed. Please try again.", {
+              id: toastId,
+            });
           });
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Unable to create account");
+
+        toast.error("Unable to create account", {
+          id: toastId,
+        });
       });
   };
 
