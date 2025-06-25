@@ -3,12 +3,13 @@ import { FaBars, FaXmark } from "react-icons/fa6";
 import { Link, NavLink, useLocation } from "react-router";
 import { themeChange } from "theme-change";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
-import { FiLogOut } from "react-icons/fi";
 import { RxAvatar } from "react-icons/rx";
 import toast from "react-hot-toast";
 import NavLinks from "../NavLinks/NavLinks";
 import { AnimatePresence, motion } from "motion/react";
 import { Tooltip } from "react-tooltip";
+import { RiHome4Line } from "react-icons/ri";
+import { GrLogout } from "react-icons/gr";
 
 const Navbar = () => {
   const location = useLocation();
@@ -60,13 +61,13 @@ const Navbar = () => {
         <div className="relative md:hidden">
           <button
             onClick={toggleMenu}
-            className="transition-transform duration-300 ease-in-out relative w-6 h-6 flex text-secondary"
+            className="transition-transform duration-300 ease-in-out relative w-7 h-7 flex text-secondary"
           >
             <div
               className="absolute inset-0 transition-all duration-300 ease-in-out transform"
               style={{ opacity: isOpen ? 0 : 1, transform: "rotate(0deg)" }}
             >
-              <FaBars className="w-full h-full" />
+              <RiHome4Line className="w-full h-full" />
             </div>
             <div
               className="absolute inset-0 transition-all duration-300 ease-in-out transform"
@@ -161,7 +162,8 @@ const Navbar = () => {
               <button className="hidden md:flex btn btn-outline btn-secondary">
                 Logout
               </button>
-              <FiLogOut size={25} className="md:hidden" />
+
+              <GrLogout size={25} className="md:hidden" />
             </div>
           </>
         ) : (
