@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import { themeChange } from "theme-change";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import { FiLogOut } from "react-icons/fi";
@@ -8,8 +8,10 @@ import { RxAvatar } from "react-icons/rx";
 import toast from "react-hot-toast";
 import NavLinks from "../NavLinks/NavLinks";
 import { AnimatePresence, motion } from "motion/react";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
+  const location = useLocation();
   const { user, logout } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -133,7 +135,7 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* <Tooltip id="user-tooltip" place="bottom" /> */}
+            <Tooltip id="user-tooltip" place="bottom" />
 
             <div onClick={handleLogout} className="text-secondary">
               <button className="hidden md:flex btn btn-outline btn-secondary">
