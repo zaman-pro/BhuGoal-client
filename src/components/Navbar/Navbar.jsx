@@ -7,8 +7,7 @@ import { FiLogOut } from "react-icons/fi";
 import { RxAvatar } from "react-icons/rx";
 import toast from "react-hot-toast";
 import NavLinks from "../NavLinks/NavLinks";
-import { motion, AnimatePresence } from "framer-motion";
-
+import { AnimatePresence, motion } from "motion/react";
 const Navbar = () => {
   const { user, logout } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -40,30 +39,6 @@ const Navbar = () => {
       });
   };
 
-  // const navLinks = (
-  //   <>
-  //     <li>
-  //       <NavLink className="font-medium" to="/">
-  //         Home
-  //       </NavLink>
-  //     </li>
-
-  //     <li>
-  //       <NavLink className="font-medium" to="/assignments">
-  //         Assignments
-  //       </NavLink>
-  //     </li>
-
-  //     {user && (
-  //       <li>
-  //         <NavLink className="font-medium" to="/pending-assignments">
-  //           Pending Assignments
-  //         </NavLink>
-  //       </li>
-  //     )}
-  //   </>
-  // );
-
   return (
     <div className="navbar bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 lg:w-10/12 rounded-md px-4 lg:px-5">
       <div className="navbar-start">
@@ -89,14 +64,21 @@ const Navbar = () => {
             </div>
           </button>
 
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {isOpen && (
               <motion.ul
-                className="absolute left-0 z-10 mt-6 w-52 rounded-box bg-base-100 p-2 shadow menu menu-sm"
-                initial={{ opacity: 0, y: -10 }}
+                key="mobile-menu"
+                layout
+                className="absolute left-0 z-10 mt-6 w-52 rounded-box bg-base-100 p-2 shadow menu menu-sm overflow-hidden will-change-transform"
+                initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 32,
+                  mass: 0.8,
+                }}
               >
                 <NavLinks user={user} onLinkClick={() => setIsOpen(false)} />
               </motion.ul>
@@ -118,7 +100,6 @@ const Navbar = () => {
 
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1">
-          {/* {navLinks} */}
           <NavLinks user={user} />
         </ul>
       </div>
