@@ -9,7 +9,7 @@ const Footer = () => {
   const showAuthLinks = !user && location.pathname !== "/auth";
 
   return (
-    <div className="bg-secondary/10">
+    <div className="bg-secondary/10 space-y-5 md:space-y-0">
       <footer className="flex flex-col md:flex-row justify-between md:items-start mx-auto md:py-10 gap-10 w-11/12 lg:w-10/12">
         <div className="space-y-5">
           <a className="text-4xl text-secondary font-bold">BhuGoal</a>
@@ -17,13 +17,19 @@ const Footer = () => {
           <SocialLinks />
         </div>
 
-        <div className="min-w-[160px]">
+        <div className="min-w-[200px]">
           <h6 className="font-semibold">Essential Links</h6>
           <div className="mt-2 flex flex-col gap-1 text-sm">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/assignments">Assignments</NavLink>
             {user && (
-              <NavLink to="/pending-assignments">Pending Assignments</NavLink>
+              <>
+                <NavLink to="/pending-assignments">Pending Assignments</NavLink>
+                <NavLink to="/create-assignment">Create Assignments</NavLink>
+                <NavLink to="/my-attempted-assignments">
+                  My Attempted Assignments
+                </NavLink>
+              </>
             )}
 
             {showAuthLinks && (

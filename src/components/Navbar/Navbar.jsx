@@ -16,6 +16,7 @@ const Navbar = () => {
   const { user, logout } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
+  const showAuthLinks = !user && location.pathname !== "/auth";
 
   useEffect(() => {
     themeChange(false); // false for React project
@@ -23,6 +24,9 @@ const Navbar = () => {
 
   // tooltip theme change
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  // avatar dropdown
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -85,7 +89,7 @@ const Navbar = () => {
               <motion.ul
                 key="mobile-menu"
                 layout
-                className="absolute left-0 z-10 mt-6 w-52 rounded-box bg-base-100 p-2 shadow menu menu-sm overflow-hidden will-change-transform"
+                className="absolute left-0 mt-6 z-10 p-2 shadow menu menu-sm bg-base-100 rounded-box w-52 overflow-hidden will-change-transform"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -108,7 +112,7 @@ const Navbar = () => {
             src="https://s14.gifyu.com/images/bHmBS.png"
             alt="Logo"
           />
-          <span className="hidden md:flex text-3xl font-bold text-secondary">
+          <span className="hidden lg:flex text-3xl font-bold text-secondary">
             BhuGoal
           </span>
         </Link>
@@ -132,31 +136,77 @@ const Navbar = () => {
 
         {user ? (
           <>
-            <div
-              data-tooltip-id="user-tooltip"
-              data-tooltip-content={user?.displayName || "Guest"}
-              className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer"
-            >
-              {user?.photoURL ? (
-                <img
-                  src={user.photoURL}
-                  className="w-full h-full object-cover"
-                  alt="User Avatar"
-                />
-              ) : (
-                <RxAvatar className="w-full h-full" />
-              )}
+            {/* Avatar with dropdown */}
+            <div className="relative">
+              <div
+                role="button"
+                data-tooltip-id="user-tooltip"
+                data-tooltip-content={user?.displayName || "Guest"}
+                className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer flex items-center justify-center"
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+              >
+                {user?.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    className="w-full h-full object-cover"
+                    alt="User Avatar"
+                  />
+                ) : (
+                  <RxAvatar className="w-full h-full" />
+                )}
+              </div>
+
+              <AnimatePresence mode="wait">
+                {isDropdownOpen && (
+                  <motion.ul
+                    key="dropdown"
+                    layout
+                    className="absolute right-0 mt-6 z-10 p-2 shadow menu menu-sm bg-base-100 rounded-box w-52 overflow-hidden will-change-transform"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 32,
+                      mass: 0.8,
+                    }}
+                  >
+                    <li>
+                      <NavLink
+                        className="font-medium"
+                        to="/create-assignment"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Create Assignments
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        className="font-medium"
+                        to="/my-attempted-assignments"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        My Attempted Assignments
+                      </NavLink>
+                    </li>
+                  </motion.ul>
+                )}
+              </AnimatePresence>
             </div>
 
-            <Tooltip
-              id="user-tooltip"
-              place="bottom"
-              key={theme}
-              style={{
-                backgroundColor: theme === "dark" ? "#f3f4f6" : "#1f2937",
-                color: theme === "dark" ? "#111827" : "#f9fafb",
-              }}
-            />
+            <div className="hidden lg:block">
+              <Tooltip
+                id="user-tooltip"
+                place="bottom"
+                offset={13}
+                key={theme}
+                style={{
+                  backgroundColor: theme === "dark" ? "#f3f4f6" : "#1f2937",
+                  color: theme === "dark" ? "#111827" : "#f9fafb",
+                }}
+              />
+            </div>
 
             <div onClick={handleLogout} className="text-secondary">
               <button className="hidden md:flex btn btn-outline btn-secondary">
@@ -167,7 +217,7 @@ const Navbar = () => {
             </div>
           </>
         ) : (
-          !["/auth"].includes(location.pathname) && (
+          showAuthLinks && (
             <div className="flex gap-2">
               <Link
                 to="/auth?mode=login"
