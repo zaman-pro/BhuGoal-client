@@ -4,7 +4,7 @@ import SocialLinks from "../SocialLinks/SocialLinks";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 
 const Footer = () => {
-  const { user } = use(AuthContext) || AuthContext;
+  const { user } = use(AuthContext);
   return (
     <div className="bg-secondary/10">
       <footer className="flex flex-col md:flex-row justify-between md:items-start mx-auto md:py-10 gap-10 w-11/12 lg:w-10/12">
@@ -14,46 +14,30 @@ const Footer = () => {
           <SocialLinks />
         </div>
 
-        <div>
+        <div className="min-w-[160px]">
           <h6 className="font-semibold">Essential Links</h6>
-          <div className="mt-2 space-y-1">
-            <NavLink to="/" className="block text-sm">
-              Home
-            </NavLink>
+          <div className="mt-2 flex flex-col gap-1 text-sm">
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/assignments">Assignments</NavLink>
             {user ? (
-              <>
-                <NavLink to="/pending-assignments" className="block text-sm">
-                  Pending Assignments
-                </NavLink>
-                {/* <NavLink to="/edit/profile" className="block text-sm">
-                  Edit Profile
-                </NavLink> */}
-              </>
+              <NavLink to="/pending-assignments">Pending Assignments</NavLink>
             ) : (
-              <>
-                <NavLink to="/auth" className="block text-sm">
-                  Login
-                </NavLink>
-                <NavLink to="/register" className="block text-sm">
-                  Register
-                </NavLink>
-              </>
+              !["/auth"].includes(location.pathname) && (
+                <>
+                  <NavLink to="/auth?mode=login">Login</NavLink>
+                  <NavLink to="/auth?mode=register">Register</NavLink>
+                </>
+              )
             )}
           </div>
         </div>
 
         <div>
           <h6 className="font-semibold">Legal & Resources</h6>
-          <div className="mt-2 space-y-1 footerLink">
-            <NavLink to="/terms" className="block text-sm">
-              Terms of Service
-            </NavLink>
-            <NavLink to="/privacy" className="block text-sm">
-              Privacy Policy
-            </NavLink>
-            <NavLink to="/developer-resources" className="block text-sm">
-              Developer Resources
-            </NavLink>
+          <div className="mt-2 flex flex-col gap-1 text-sm">
+            <NavLink to="/terms">Terms of Service</NavLink>
+            <NavLink to="/privacy">Privacy Policy</NavLink>
+            <NavLink to="/developer-resources">Developer Resources</NavLink>
           </div>
         </div>
       </footer>
