@@ -4,7 +4,7 @@ const Faq = () => {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between gap-5 w-11/12 mx-auto">
       {/* faq left content */}
-      <div className="flex-1">
+      <div className="flex-1 h-[450px] flex items-center">
         <h2 className="text-3xl lg:text-4xl font-bold">
           Frequently Asked Questions
         </h2>
