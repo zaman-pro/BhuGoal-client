@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { Link, NavLink, useLocation } from "react-router";
 import { themeChange } from "theme-change";
@@ -15,19 +15,19 @@ const Navbar = () => {
   const location = useLocation();
   const { user, logout } = use(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const dropdownRef = useRef(null);
+  const menuRef = useRef(null);
+
   const toggleMenu = () => setIsOpen(!isOpen);
   const showAuthLinks = !user && location.pathname !== "/auth";
 
   useEffect(() => {
-    themeChange(false); // false for React project
+    themeChange(false);
   }, []);
 
-  // tooltip theme change
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
-  // avatar dropdown
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  // Theme state sync
   useEffect(() => {
     const updateTheme = () => {
       setTheme(localStorage.getItem("theme") || "light");
@@ -36,6 +36,37 @@ const Navbar = () => {
     window.addEventListener("themeChange", updateTheme);
     return () => window.removeEventListener("themeChange", updateTheme);
   }, []);
+
+  // Click outside dropdown to close
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Click outside menu to close
+  useEffect(() => {
+    const handleClickOutsideMenu = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutsideMenu);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideMenu);
+    };
+  }, [isOpen]);
 
   const handleThemeChange = (e) => {
     const newTheme = e.target.checked ? "dark" : "light";
@@ -53,8 +84,7 @@ const Navbar = () => {
       .then(() => {
         toast.success("Logout successful", { id: toastId });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         toast.error("Logout failed. Please try again", { id: toastId });
       });
   };
@@ -62,7 +92,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 lg:w-10/12 rounded-md px-4 lg:px-5">
       <div className="navbar-start">
-        <div className="relative md:hidden">
+        <div className="relative md:hidden" ref={menuRef}>
           <button
             onClick={toggleMenu}
             className="transition-transform duration-300 ease-in-out relative w-7 h-7 flex text-secondary"
@@ -87,6 +117,8 @@ const Navbar = () => {
           <AnimatePresence mode="wait">
             {isOpen && (
               <motion.ul
+                role="menu"
+                aria-label="mobile Menu"
                 key="mobile-menu"
                 layout
                 className="absolute left-0 mt-6 z-10 p-2 shadow menu menu-sm bg-base-100 rounded-box w-52 overflow-hidden will-change-transform"
@@ -132,14 +164,15 @@ const Navbar = () => {
           onChange={handleThemeChange}
           defaultChecked={localStorage.getItem("theme") === "dark"}
           className="toggle toggle-secondary"
+          aria-label="toggle theme"
         />
-
+        {/* Avatar with dropdown */}
         {user ? (
           <>
-            {/* Avatar with dropdown */}
-            <div className="relative">
+            <div ref={dropdownRef} className="relative">
               <div
                 role="button"
+                tabIndex={0}
                 data-tooltip-id="user-tooltip"
                 data-tooltip-content={user?.displayName || "Guest"}
                 className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer flex items-center justify-center"
