@@ -1,24 +1,29 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
-    <div className="hero bg-base-200 min-h-screen w-11/12 lg:w-10/12 mx-auto">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <img
-          src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-          className="max-w-sm rounded-lg shadow-2xl"
-        />
-        <div>
-          <h1 className="text-5xl font-bold">Box Office News!</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <button className="btn btn-primary">Get Started</button>
-        </div>
+    <section className="flex gap-5 flex-col md:flex-row items-center justify-between w-11/12 mx-auto">
+      {/* banner text content*/}
+      <div className="">
+        <h1 className="text-3xl md:text-4xl font-bold leading-tight lg:max-w-[560px]">
+          Empowering You to Learn and Grow Together
+        </h1>
+        <p className="mt-3">1000+ Assignments Created Together</p>
+        <Link to="/assignments" className="btn btn-secondary mt-3">
+          Get Started
+        </Link>
       </div>
-    </div>
+
+      {/* banner image */}
+      <div className="">
+        <img
+          src="https://s14.gifyu.com/images/bH4BP.png"
+          alt="Hero"
+          className="w-full object-contain"
+        />
+      </div>
+    </section>
   );
 };
 

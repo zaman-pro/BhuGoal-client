@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <div className="bg-secondary/10 space-y-5 md:space-y-0">
-      <footer className="flex flex-col md:flex-row justify-between md:items-start mx-auto md:py-10 gap-10 w-11/12 lg:w-10/12">
+      <footer className="flex flex-col md:flex-row justify-between md:items-start mx-auto md:py-10 gap-10 w-11/12">
         <div className="space-y-5">
           <a className="text-4xl text-secondary font-bold">BhuGoal</a>
           <p className="">Connect. Assign. Grow.</p>
@@ -51,9 +51,9 @@ const Footer = () => {
         </div>
       </footer>
 
-      <div className="border-t w-11/12 lg:w-10/12 mx-auto"></div>
+      <div className="border-t w-11/12 mx-auto"></div>
 
-      <footer className="py-4 md:py-8 w-11/12 lg:w-10/12 mx-auto">
+      <footer className="py-4 md:py-8 w-11/12 mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center gap-5 text-center">
           <p className="text-xs">
             © {new Date().getFullYear()} - zaman-pro. All rights reserved.

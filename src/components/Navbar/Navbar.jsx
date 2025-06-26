@@ -90,7 +90,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 lg:w-10/12 rounded-md px-4 lg:px-5">
+    <div className="navbar bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 rounded-md px-4 lg:px-5">
       <div className="navbar-start">
         <div className="relative md:hidden" ref={menuRef}>
           <button
