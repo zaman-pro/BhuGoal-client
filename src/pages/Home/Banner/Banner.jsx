@@ -5,18 +5,18 @@ const Banner = () => {
   return (
     <section className="flex gap-5 flex-col md:flex-row items-center justify-between w-11/12 mx-auto">
       {/* banner text content*/}
-      <div className="">
-        <h1 className="text-3xl md:text-4xl font-bold leading-tight lg:max-w-[560px]">
+      <div className="flex-1">
+        <h1 className="text-3xl lg:text-5xl font-bold leading-tight ">
           Empowering You to Learn and Grow Together
         </h1>
         <p className="mt-3">1000+ Assignments Created Together</p>
-        <Link to="/assignments" className="btn btn-secondary mt-3">
+        <Link to="/assignments" className="btn btn-soft btn-secondary mt-3">
           Get Started
         </Link>
       </div>
 
       {/* banner image */}
-      <div className="">
+      <div className="flex-1">
         <img
           src="https://s14.gifyu.com/images/bH4BP.png"
           alt="Hero"
