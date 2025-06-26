@@ -5,7 +5,7 @@ import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 const Feature = () => {
   return (
     <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-5 w-11/12 mx-auto">
-      {/* Right Image */}
+      {/* feature image */}
       <div className="flex-1">
         <img
           src="https://s14.gifyu.com/images/bH6iD.png"
@@ -14,7 +14,7 @@ const Feature = () => {
         />
       </div>
 
-      {/* Text Content */}
+      {/* feature content */}
       <div className="flex-1">
         <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-4">
           Core Features at a Glance

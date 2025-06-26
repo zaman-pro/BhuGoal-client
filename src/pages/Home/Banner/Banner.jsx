@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Banner = () => {
   return (
     <section className="flex gap-5 flex-col md:flex-row items-center justify-between w-11/12 mx-auto">
-      {/* banner text content*/}
+      {/* banner content*/}
       <div className="flex-1">
         <h1 className="text-3xl lg:text-5xl font-bold leading-tight ">
           Empowering You to Learn and Grow Together
