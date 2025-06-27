@@ -3,6 +3,8 @@ import Banner from "./Banner/Banner";
 import Feature from "./Feature/Feature";
 import Faq from "./Faq/Faq";
 import TopSubjects from "./TopSubjects/TopSubjects";
+import Feedback from "./Feedback/Feedback";
+import GetTheApp from "./GetTheApp/GetTheApp";
 
 const Home = () => {
   return (
@@ -10,6 +12,8 @@ const Home = () => {
       <Banner />
       <Feature />
       <TopSubjects />
+      <GetTheApp />
+      <Feedback />
       <Faq />
     </div>
   );
