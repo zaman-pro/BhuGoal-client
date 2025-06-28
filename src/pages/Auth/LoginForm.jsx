@@ -1,14 +1,23 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import toast from "react-hot-toast";
 
 const LoginForm = () => {
-  const { login } = use(AuthContext);
+  const { user, login, googleLogin } = use(AuthContext);
 
   const [ShowPassword, setShowPassword] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(`${location.state ? location.state : "/"}`);
+    }
+  }, [user, navigate, location.state]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,7 +39,16 @@ const LoginForm = () => {
       });
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(() => {
+        toast.success("Google login successful");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Google login failed");
+      });
+  };
   const handleGithubLogin = () => {};
   const handleFacebookLogin = () => {};
   return (
@@ -110,7 +128,11 @@ const LoginForm = () => {
       </fieldset>
       <p className="text-xs font-medium text-center text-secondary/90">
         Don't have an account?{" "}
-        <Link className="link link-hover text-primary" to="/auth?mode=register">
+        <Link
+          className="link link-hover text-primary"
+          state={location.state}
+          to="/auth?mode=register"
+        >
           Register
         </Link>
       </p>

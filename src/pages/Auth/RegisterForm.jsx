@@ -1,15 +1,24 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import toast from "react-hot-toast";
 
 const RegisterForm = () => {
-  const { register, googleLogin, passwordRegex, updateUser, setUser } =
+  const { user, register, googleLogin, passwordRegex, updateUser, setUser } =
     use(AuthContext);
 
   const [ShowPassword, setShowPassword] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(`${location.state ? location.state : "/"}`);
+    }
+  }, [user, navigate, location.state]);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -159,7 +168,11 @@ const RegisterForm = () => {
       </fieldset>
       <p className="text-xs font-medium text-center text-secondary/90">
         Already have an account?{" "}
-        <Link className="link link-hover text-primary" to="/auth?mode=login">
+        <Link
+          className="link link-hover text-primary"
+          state={location.state}
+          to="/auth?mode=login"
+        >
           Login
         </Link>
       </p>

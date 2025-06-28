@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { useNavigate, useSearchParams } from "react-router";
+import { Link, useLocation, useSearchParams } from "react-router";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const location = useLocation();
 
   //   routes mode check
   useEffect(() => {
@@ -21,33 +21,36 @@ const Auth = () => {
   return (
     <div className="md:min-h-screen flex justify-center md:items-center">
       <div className="relative rounded-lg w-full max-w-sm shadow-md p-4 overflow-hidden min-h-[640px]">
-        {/* Tab Toggle with Sliding Background */}
+        {/* tab toggle with sliding bg */}
         <div className="relative flex mb-6 bg-primary/20 rounded overflow-hidden">
-          {/* Sliding Background */}
+          {/* sliding bg */}
           <div
             className={`absolute top-0 h-full w-1/2 bg-secondary transition-all duration-500 ${
               isLogin ? "left-0" : "left-1/2"
             }`}
           ></div>
 
-          {/* Toggle Buttons */}
-          <button
-            className="flex-1 py-2 font-medium z-10 transition-colors duration-300 text-white"
-            onClick={() => navigate("/auth?mode=login")}
+          {/* toggle btns */}
+          <Link
+            className="flex-1 py-2 font-medium z-10 transition-colors duration-300 text-white text-center inline-block"
+            state={location.state}
+            to="/auth?mode=login"
           >
             Login
-          </button>
-          <button
-            className="flex-1 py-2 font-medium z-10 transition-colors duration-300 text-white"
-            onClick={() => navigate("/auth?mode=register")}
+          </Link>
+
+          <Link
+            className="flex-1 py-2 font-medium z-10 transition-colors duration-300 text-white text-center inline-block"
+            state={location.state}
+            to="/auth?mode=register"
           >
             Register
-          </button>
+          </Link>
         </div>
 
-        {/* Forms Wrapper */}
+        {/* forms wrapper */}
         <div className="relative w-full h-full">
-          {/* Login Form */}
+          {/* login form */}
           <div
             className={`absolute top-0 left-0 w-full transition-all duration-500 ease-in-out ${
               isLogin
@@ -61,7 +64,7 @@ const Auth = () => {
             <LoginForm />
           </div>
 
-          {/* Register Form */}
+          {/* register form */}
           <div
             className={`absolute top-0 left-0 w-full transition-all duration-500 ease-in-out ${
               !isLogin
