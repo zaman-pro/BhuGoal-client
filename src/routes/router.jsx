@@ -4,7 +4,7 @@ import Home from "../pages/Home/Home";
 import Auth from "../pages/Auth/Auth";
 import Assignments from "../pages/Assignments/Assignments";
 import PendingAssignments from "../pages/PendingAssignments/PendingAssignments";
-import CreateAssignments from "../pages/CreateAssignments/CreateAssignments";
+import CreateAssignment from "../pages/CreateAssignments/CreateAssignment";
 import MyAttemptedAssignments from "../pages/MyAttemptedAssignments/MyAttemptedAssignments";
 import PrivateRoute from "../contexts/AuthContext/PrivateRoute";
 
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: "/create-assignment",
         element: (
           <PrivateRoute>
-            <CreateAssignments />
+            <CreateAssignment />
           </PrivateRoute>
         ),
       },

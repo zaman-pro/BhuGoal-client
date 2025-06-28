@@ -23,7 +23,7 @@ const MainLayout = () => {
       </header>
 
       <main>
-        <section className="pt-20">
+        <section className="pt-20 w-11/12 mx-auto">
           <Outlet />
         </section>
       </main>

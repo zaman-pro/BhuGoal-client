@@ -35,7 +35,7 @@ const feedbacks = [
 
 const Feedback = () => {
   return (
-    <section className="w-11/12 mx-auto">
+    <div>
       {/* section title */}
       <div className="text-center mb-8">
         <h2 className="text-3xl lg:text-4xl font-bold">Student Feedback</h2>
@@ -71,7 +71,7 @@ const Feedback = () => {
           ))}
         </Swiper>
       </div>
-    </section>
+    </div>
   );
 };
 

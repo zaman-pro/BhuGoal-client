@@ -22,7 +22,7 @@ const faqData = [
 
 const Faq = () => {
   return (
-    <section className="w-11/12 mx-auto">
+    <div>
       {/* faq section title */}
       <h2 className="text-3xl lg:text-4xl font-bold text-center">
         Frequently Asked Questions
@@ -51,7 +51,7 @@ const Faq = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

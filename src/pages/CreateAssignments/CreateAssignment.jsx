@@ -1,7 +1,7 @@
 import React from "react";
 
-const CreateAssignments = () => {
+const CreateAssignment = () => {
   return <div>this is Create Assignments page</div>;
 };
 
-export default CreateAssignments;
+export default CreateAssignment;

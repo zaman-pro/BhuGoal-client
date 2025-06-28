@@ -46,7 +46,7 @@ const subjects = [
 
 const TopSubjects = () => {
   return (
-    <section className="w-11/12 mx-auto">
+    <div>
       {/* top subjects title */}
       <h2 className="text-3xl lg:text-4xl font-bold mb-7 md:text-center">
         Top Listed Subjects
@@ -74,7 +74,7 @@ const TopSubjects = () => {
           </Link>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

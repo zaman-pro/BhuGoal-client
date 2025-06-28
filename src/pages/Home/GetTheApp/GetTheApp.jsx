@@ -3,7 +3,7 @@ import { FaGooglePlay, FaApple } from "react-icons/fa";
 
 const GetTheApp = () => {
   return (
-    <section className="flex gap-5 flex-col md:flex-row items-center justify-between w-11/12 mx-auto">
+    <section className="flex gap-5 flex-col md:flex-row items-center justify-between">
       <div className="flex-1">
         <h1 className="text-3xl lg:text-4xl font-bold leading-tight">
           Access Learning from Any Device
