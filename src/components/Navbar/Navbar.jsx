@@ -1,8 +1,8 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { Link, NavLink, useLocation } from "react-router";
 import { themeChange } from "theme-change";
-import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+
 import { RxAvatar } from "react-icons/rx";
 import toast from "react-hot-toast";
 import NavLinks from "../NavLinks/NavLinks";
@@ -10,10 +10,11 @@ import { AnimatePresence, motion } from "motion/react";
 import { Tooltip } from "react-tooltip";
 import { RiHome4Line } from "react-icons/ri";
 import { GrLogout } from "react-icons/gr";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const location = useLocation();
-  const { user, logout } = use(AuthContext);
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");

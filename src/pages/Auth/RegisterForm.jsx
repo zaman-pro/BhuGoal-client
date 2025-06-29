@@ -1,13 +1,13 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaFacebook, FaGithub } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "../../contexts/AuthContext/AuthContext";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const RegisterForm = () => {
   const { user, register, googleLogin, passwordRegex, updateUser, setUser } =
-    use(AuthContext);
+    useAuth();
 
   const [ShowPassword, setShowPassword] = useState(false);
 

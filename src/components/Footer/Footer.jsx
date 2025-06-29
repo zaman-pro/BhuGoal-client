@@ -1,10 +1,10 @@
-import React, { use } from "react";
+import React from "react";
 import { NavLink, useLocation } from "react-router";
 import SocialLinks from "../SocialLinks/SocialLinks";
-import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import useAuth from "../../hooks/useAuth";
 
 const Footer = () => {
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
   const location = useLocation();
   const showAuthLinks = !user && location.pathname !== "/auth";
 

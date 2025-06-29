@@ -1,11 +1,11 @@
-import React, { use, useState } from "react";
-import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
-  const { user } = use(AuthContext);
+  const { user } = useAuth();
 
   const [startDate, setStartDate] = useState(() => {
     if (isUpdateAssignment && assignment?.dueDate) {
