@@ -90,7 +90,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar h-16 bg-base-100 shadow-md fixed z-50 border top-0 left-1/2 -translate-x-1/2 w-11/12 rounded-md px-4 lg:px-5">
+    <div className="navbar h-16 bg-base-100 shadow-md fixed z-50 border border-secondary/30 top-0 left-1/2 -translate-x-1/2 w-11/12 rounded-md px-4 lg:px-5">
       <div className="navbar-start">
         <div className="relative md:hidden" ref={menuRef}>
           <button
@@ -211,7 +211,7 @@ const Navbar = () => {
                         to="/create-assignment"
                         onClick={() => setIsDropdownOpen(false)}
                       >
-                        Create Assignments
+                        Create Assignment
                       </NavLink>
                     </li>
                     <li>
