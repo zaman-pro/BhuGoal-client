@@ -39,10 +39,12 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
     }
 
     // validate marks
-    if (parseInt(assignmentData.marks) < 1) {
+    const marksNumber = parseInt(assignmentData.marks, 10);
+    if (isNaN(marksNumber) || marksNumber < 1) {
       toast.dismiss();
       return toast.error("Marks must be at least 1", { id: "marks-error" });
     }
+    assignmentData.marks = marksNumber;
 
     // check due date is not in the past
     if (!isUpdateAssignment) {
@@ -54,12 +56,12 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
 
       if (selectedDate < today) {
         toast.dismiss();
-        return toast.error("Past dates not allowed");
+        return toast.error("Past dates not allowed", { id: "date-error" });
       }
     }
 
-    // add formatted date
-    assignmentData.dueDate = startDate.toISOString().split("T")[0];
+    // due date
+    assignmentData.dueDate = startDate;
 
     // need to set manually if it's disable
     assignmentData.userEmail = user?.email;
@@ -136,7 +138,7 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
           <fieldset className="fieldset">
             <label className="label text-sm font-semibold">Marks</label>
             <input
-              type="number"
+              type="text"
               name="marks"
               placeholder="Marks"
               className="input focus:outline-none w-full"
