@@ -30,14 +30,15 @@ const RegisterForm = () => {
     const password = form.password.value;
 
     if (!passwordRegex.test(password)) {
-      toast.error("Use at least 6 letters with upper & lower case", {
+      toast.dismiss();
+      return toast.error("Use at least 6 letters with upper & lower case", {
         id: "password-error",
       });
-      return;
     }
 
     // Show loading toast
     const toastId = "registerToast";
+    toast.dismiss();
     toast.loading("Creating account", { id: toastId });
 
     register(email, password)

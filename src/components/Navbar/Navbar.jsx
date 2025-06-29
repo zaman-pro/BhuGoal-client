@@ -78,6 +78,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    toast.dismiss();
     const toastId = toast.loading("Logging out");
 
     logout()

@@ -27,6 +27,7 @@ const LoginForm = () => {
 
     // Show loading toast
     const toastId = "loginToast";
+    toast.dismiss();
     toast.loading("Logging in", { id: toastId });
 
     login(email, password)

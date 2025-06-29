@@ -1,31 +1,79 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext/AuthContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import toast from "react-hot-toast";
 
-const AssignmentForm = ({
-  assignment,
-  handleCreateAssignment,
-  handleUpdateAssignment,
-  isUpdateAssignment,
-}) => {
+const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
   const { user } = use(AuthContext);
+
+  const [startDate, setStartDate] = useState(() => {
+    if (isUpdateAssignment && assignment?.dueDate) {
+      return new Date(assignment.dueDate);
+    }
+    return new Date();
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const assignmentData = Object.fromEntries(formData.entries());
+
+    // Manual validation fields with custom labels
+    const requiredFields = {
+      thumbnail: "Thumbnail URL",
+      title: "Title",
+      difficultyLevel: "Difficulty Level",
+      dueDate: "Due Date",
+      marks: "Marks",
+      description: "Description",
+    };
+
+    for (const field in requiredFields) {
+      if (!assignmentData[field]?.trim()) {
+        toast.dismiss();
+        return toast.error(`${requiredFields[field]} is required`, {
+          id: "required-error",
+        });
+      }
+    }
+
+    // validate marks
+    if (parseInt(assignmentData.marks) < 1) {
+      toast.dismiss();
+      return toast.error("Marks must be at least 1", { id: "marks-error" });
+    }
+
+    // check due date is not in the past
+    if (!isUpdateAssignment) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const selectedDate = new Date(startDate);
+      selectedDate.setHours(0, 0, 0, 0);
+
+      if (selectedDate < today) {
+        toast.dismiss();
+        return toast.error("Past dates not allowed");
+      }
+    }
+
+    // add formatted date
+    assignmentData.dueDate = startDate.toISOString().split("T")[0];
+
+    // need to set manually if it's disable
+    assignmentData.userEmail = user?.email;
+
+    onSubmit(assignmentData);
+  };
 
   return (
     <div className="p-3 rounded-md border border-secondary/30 shadow-lg overflow-hidden">
-      {isUpdateAssignment ? (
-        <h2 className="text-3xl font-bold mb-2 md:mb-6 text-center text-secondary">
-          Update Assignment
-        </h2>
-      ) : (
-        <h2 className="text-3xl font-bold mb-2 md:mb-6 text-center text-secondary">
-          Create New Assignment
-        </h2>
-      )}
-      <form
-        onSubmit={
-          isUpdateAssignment ? handleUpdateAssignment : handleCreateAssignment
-        }
-        className="space-y-4"
-      >
+      <h2 className="text-3xl font-bold mb-2 md:mb-6 text-center text-secondary">
+        {isUpdateAssignment ? "Update Assignment" : "Create New Assignment"}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* thumbnail */}
           <fieldset className="fieldset">
@@ -35,7 +83,6 @@ const AssignmentForm = ({
               name="thumbnail"
               placeholder="Thumbnail"
               className="input focus:outline-none w-full"
-              required
               defaultValue={assignment?.thumbnail}
             />
           </fieldset>
@@ -48,7 +95,6 @@ const AssignmentForm = ({
               name="title"
               placeholder="Title"
               className="input focus:outline-none w-full"
-              required
               defaultValue={assignment?.title}
             />
           </fieldset>
@@ -61,9 +107,11 @@ const AssignmentForm = ({
             <select
               name="difficultyLevel"
               className="select focus:outline-none w-full"
-              required
+              defaultValue={assignment?.difficultyLevel || ""}
             >
-              <option defaultValue="">{assignment?.difficultyLevel}</option>
+              <option value="" disabled>
+                Select difficulty
+              </option>
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
               <option value="Hard">Hard</option>
@@ -73,12 +121,14 @@ const AssignmentForm = ({
           {/* due date */}
           <fieldset className="fieldset">
             <label className="label text-sm font-semibold">Due Date</label>
-            <input
+            <DatePicker
               type="date"
               name="dueDate"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              minDate={!isUpdateAssignment ? new Date() : null}
               className="input focus:outline-none w-full"
-              defaultValue={assignment?.dueDate}
-              required
+              dateFormat="yyyy-MM-dd"
             />
           </fieldset>
 
@@ -86,12 +136,11 @@ const AssignmentForm = ({
           <fieldset className="fieldset">
             <label className="label text-sm font-semibold">Marks</label>
             <input
-              type="text"
+              type="number"
               name="marks"
               placeholder="Marks"
               className="input focus:outline-none w-full"
-              required
-              defaultValue={assignment?.healthStatus}
+              defaultValue={assignment?.marks}
             />
           </fieldset>
 
@@ -103,24 +152,10 @@ const AssignmentForm = ({
               name="userEmail"
               placeholder="User Email"
               className="input focus:outline-none w-full"
-              required
               defaultValue={user?.email}
-              //   disabled
+              disabled
             />
           </fieldset>
-
-          {/* user name */}
-          {/* <fieldset className="fieldset">
-            <label className="label text-sm font-semibold">User Name</label>
-            <input
-              type="text"
-              name="userName"
-              placeholder="User Name"
-              className="input focus:outline-none w-full"
-              required
-              defaultValue={user?.displayName || "Unknown"}
-            />
-          </fieldset> */}
         </div>
 
         {/* description */}
@@ -130,7 +165,6 @@ const AssignmentForm = ({
             name="description"
             placeholder="Description"
             className="textarea focus:outline-none w-full"
-            required
             defaultValue={assignment?.description}
           />
         </fieldset>
