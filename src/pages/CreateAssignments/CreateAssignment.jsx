@@ -27,7 +27,7 @@ const CreateAssignment = () => {
       });
   };
   return (
-    <div>
+    <div className="mb-3 lg:mb-6">
       <AssignmentForm onSubmit={handleCreateAssignment} />
     </div>
   );

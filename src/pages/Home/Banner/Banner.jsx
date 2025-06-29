@@ -6,7 +6,7 @@ const Banner = () => {
     <section className="flex gap-5 flex-col md:flex-row items-center justify-between">
       {/* banner content*/}
       <div className="flex-1">
-        <h1 className="text-3xl lg:text-5xl font-bold leading-tight ">
+        <h1 className="text-3xl lg:text-5xl font-bold leading-tight">
           Empowering You to Learn and Grow Together
         </h1>
         <p className="mt-3">1000+ Assignments Created Together</p>

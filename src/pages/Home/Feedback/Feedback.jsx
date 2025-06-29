@@ -37,9 +37,10 @@ const Feedback = () => {
   return (
     <div>
       {/* section title */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl lg:text-4xl font-bold">Student Feedback</h2>
-      </div>
+
+      <h2 className="text-3xl lg:text-4xl font-bold leading-tight text-center mb-3 lg:mb-6">
+        Student Feedback
+      </h2>
 
       {/* swiper carousel */}
       <div className="relative group">

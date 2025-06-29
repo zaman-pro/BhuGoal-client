@@ -48,7 +48,7 @@ const TopSubjects = () => {
   return (
     <div>
       {/* top subjects title */}
-      <h2 className="text-3xl lg:text-4xl font-bold mb-7 md:text-center">
+      <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-3 lg:mb-6 md:text-center">
         Top Listed Subjects
       </h2>
 

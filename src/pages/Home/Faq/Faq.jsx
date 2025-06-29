@@ -24,7 +24,7 @@ const Faq = () => {
   return (
     <div>
       {/* faq section title */}
-      <h2 className="text-3xl lg:text-4xl font-bold text-center">
+      <h2 className="text-3xl lg:text-4xl font-bold text-center leading-tight">
         Frequently Asked Questions
       </h2>
 

@@ -70,8 +70,8 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
   };
 
   return (
-    <div className="p-3 rounded-md border border-secondary/30 shadow-lg overflow-hidden">
-      <h2 className="text-3xl font-bold mb-2 md:mb-6 text-center text-secondary">
+    <div>
+      <h2 className="text-3xl font-bold mb-3 md:mb-6 text-center text-secondary leading-tight">
         {isUpdateAssignment ? "Update Assignment" : "Create New Assignment"}
       </h2>
 
