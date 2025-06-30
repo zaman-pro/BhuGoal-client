@@ -12,18 +12,18 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
 
   //   update handler
   const handleUpdateAssignment = () => {
+    toast.dismiss();
     if (isCreator) {
       navigate(`/update-assignment/${assignment._id}`);
     } else {
-      toast.dismiss();
       toast.error("Only user can modify", { id: "update-error" });
     }
   };
 
   //   delete handler
   const handleDeleteAssignment = () => {
+    toast.dismiss();
     if (!isCreator) {
-      toast.dismiss();
       toast.error("Only user can delete", { id: "delete-error" });
       return;
     }
@@ -31,19 +31,22 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
     toast.dismiss();
     toast(
       (t) => (
-        <div className="text-sm">
-          <p className="mb-2">
-            Are you sure you want to <b>Delete</b> this assignment?
-          </p>
+        <div className="text-sm max-w-xs">
+          <div className="flex items-center gap-3 mb-2">
+            <FiTrash2 className="text-2xl text-error" />
+            <p>
+              Are you sure you want to <b>delete</b> this assignment?
+            </p>
+          </div>
           <div className="flex justify-end gap-2">
             <button
-              className="btn btn-sm btn-outline btn-secondary flex items-center gap-1"
+              className="btn btn-sm btn-outline btn-secondary"
               onClick={() => toast.dismiss(t.id)}
             >
               <FiX size={16} /> Cancel
             </button>
             <button
-              className="btn btn-sm btn-error text-white flex items-center gap-1"
+              className="btn btn-sm btn-error text-white"
               onClick={async () => {
                 toast.dismiss(t.id);
 
@@ -60,6 +63,9 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
                       return "Assignment deleted successfully!";
                     },
                     error: "Failed to delete assignment.",
+                  },
+                  {
+                    id: `delete-progress-${assignment._id}`,
                   }
                 );
               }}
@@ -69,7 +75,10 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
           </div>
         </div>
       ),
-      { id: `delete-confirm-${assignment._id}` }
+      {
+        id: `delete-confirm-${assignment._id}`,
+        duration: 4000,
+      }
     );
   };
 
@@ -102,7 +111,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
         <div className="flex justify-center gap-2 mt-4">
           <button
             onClick={handleUpdateAssignment}
-            className="btn btn-sm btn-outline btn-secondary flex items-center gap-1"
+            className="btn btn-sm btn-outline btn-secondary"
           >
             <FiEdit size={16} />
             {/* Update */}
@@ -110,7 +119,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
 
           <Link
             to={`/view/${assignment._id}`}
-            className="btn btn-sm btn-outline btn-secondary flex items-center gap-1"
+            className="btn btn-sm btn-outline btn-secondary"
           >
             <FiEye size={16} />
             {/* View */}
@@ -118,7 +127,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
 
           <button
             onClick={handleDeleteAssignment}
-            className="btn btn-sm btn-error text-white flex items-center gap-1"
+            className="btn btn-sm btn-error text-white"
           >
             <FiTrash2 size={16} />
             {/* Delete */}
