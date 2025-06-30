@@ -1,7 +1,26 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const AssignmentCard = ({ assignment }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const isCreator = user?.email === assignment?.userEmail;
+
+  //   update handler
+  const handleUpdateAssignment = () => {
+    if (isCreator) {
+      navigate(`/update-assignment/${assignment._id}`);
+    } else {
+      toast.dismiss();
+      toast.error("Only user can modify", { id: "update-error" });
+    }
+  };
+
+  //   delete handler
+  const handleDeleteAssignment = () => {};
+
   return (
     <div className="bg-base-200 rounded flex flex-col justify-between min-h-[300px] hover:shadow-lg transition duration-300">
       {/* card image */}
@@ -29,21 +48,24 @@ const AssignmentCard = ({ assignment }) => {
 
         {/* card button */}
         <div className="flex justify-center gap-2 mt-4">
-          <Link
-            to={`/update-assignment/${assignment._id}`}
+          <button
+            onClick={handleUpdateAssignment}
             className="btn btn-sm btn-outline btn-secondary"
           >
             Update
-          </Link>
+          </button>
 
           <Link
-            to={`/view-assignment/${assignment._id}`}
+            to={`/view/${assignment._id}`}
             className="btn btn-sm btn-outline btn-secondary"
           >
             View
           </Link>
 
-          <button className="btn btn-sm btn-outline btn-secondary">
+          <button
+            onClick={handleDeleteAssignment}
+            className="btn btn-sm btn-outline btn-secondary"
+          >
             Delete
           </button>
         </div>
@@ -51,4 +73,5 @@ const AssignmentCard = ({ assignment }) => {
     </div>
   );
 };
+
 export default AssignmentCard;
