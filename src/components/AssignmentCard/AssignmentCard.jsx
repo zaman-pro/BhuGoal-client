@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { FiEdit, FiEye, FiTrash2, FiX, FiCheck } from "react-icons/fi";
 
 const AssignmentCard = ({ assignment, setAssignments }) => {
   const { user } = useAuth();
@@ -36,13 +37,13 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
           </p>
           <div className="flex justify-end gap-2">
             <button
-              className="btn btn-sm btn-outline btn-secondary"
+              className="btn btn-sm btn-outline btn-secondary flex items-center gap-1"
               onClick={() => toast.dismiss(t.id)}
             >
-              Cancel
+              <FiX size={16} /> Cancel
             </button>
             <button
-              className="btn btn-sm btn-error text-white"
+              className="btn btn-sm btn-error text-white flex items-center gap-1"
               onClick={async () => {
                 toast.dismiss(t.id);
 
@@ -63,7 +64,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
                 );
               }}
             >
-              Confirm
+              <FiCheck size={16} /> Confirm
             </button>
           </div>
         </div>
@@ -101,23 +102,26 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
         <div className="flex justify-center gap-2 mt-4">
           <button
             onClick={handleUpdateAssignment}
-            className="btn btn-sm btn-outline btn-secondary"
+            className="btn btn-sm btn-outline btn-secondary flex items-center gap-1"
           >
-            Update
+            <FiEdit size={16} />
+            {/* Update */}
           </button>
 
           <Link
             to={`/view/${assignment._id}`}
-            className="btn btn-sm btn-outline btn-secondary"
+            className="btn btn-sm btn-outline btn-secondary flex items-center gap-1"
           >
-            View
+            <FiEye size={16} />
+            {/* View */}
           </Link>
 
           <button
             onClick={handleDeleteAssignment}
-            className="btn btn-sm btn-error text-white"
+            className="btn btn-sm btn-error text-white flex items-center gap-1"
           >
-            Delete
+            <FiTrash2 size={16} />
+            {/* Delete */}
           </button>
         </div>
       </div>
