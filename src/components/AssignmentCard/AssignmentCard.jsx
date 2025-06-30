@@ -16,7 +16,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
     if (isCreator) {
       navigate(`/update-assignment/${assignment._id}`);
     } else {
-      toast.error("Only user can modify", { id: "update-error" });
+      toast.error("Only creator can modify", { id: "update-error" });
     }
   };
 
@@ -24,7 +24,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
   const handleDeleteAssignment = () => {
     toast.dismiss();
     if (!isCreator) {
-      toast.error("Only user can delete", { id: "delete-error" });
+      toast.error("Only creator can delete", { id: "delete-error" });
       return;
     }
 
