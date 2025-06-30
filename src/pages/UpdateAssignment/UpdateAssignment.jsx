@@ -3,11 +3,12 @@ import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import toast from "react-hot-toast";
 import AssignmentForm from "../../components/AssignmentForm/AssignmentForm";
+import Loading from "../Loading/Loading";
 
 const UpdateAssignment = () => {
   const { id } = useParams();
   const [assignment, setAssignment] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
   const navigate = useNavigate();
 
   // fetch by id
@@ -16,13 +17,13 @@ const UpdateAssignment = () => {
       .get(`http://localhost:3000/assignments/${id}`)
       .then((res) => {
         setAssignment(res.data);
-        setLoading(false);
+        setDataLoading(false);
       })
       .catch((err) => {
         console.error(err);
         toast.dismiss();
         toast.error("Failed to load assignment");
-        setLoading(false);
+        setDataLoading(false);
       });
   }, [id]);
 
@@ -47,8 +48,8 @@ const UpdateAssignment = () => {
       });
   };
 
-  if (loading) {
-    return <div className="text-center mt-10">Loading assignment...</div>;
+  if (dataLoading) {
+    return <Loading />;
   }
 
   if (!assignment) {
