@@ -42,14 +42,16 @@ const Assignments = () => {
           </Link>
         </div>
       ) : (
-        <>
-          {/* assignments cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {assignments.map((assignment) => (
-              <AssignmentCard key={assignment._id} assignment={assignment} />
-            ))}
-          </div>
-        </>
+        // assignments cards
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {assignments.map((assignment) => (
+            <AssignmentCard
+              key={assignment._id}
+              assignment={assignment}
+              setAssignments={setAssignments}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

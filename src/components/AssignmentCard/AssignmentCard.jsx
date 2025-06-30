@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
+import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const AssignmentCard = ({ assignment }) => {
+const AssignmentCard = ({ assignment, setAssignments }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const isCreator = user?.email === assignment?.userEmail;
@@ -19,7 +20,57 @@ const AssignmentCard = ({ assignment }) => {
   };
 
   //   delete handler
-  const handleDeleteAssignment = () => {};
+  const handleDeleteAssignment = () => {
+    if (!isCreator) {
+      toast.dismiss();
+      toast.error("Only user can delete", { id: "delete-error" });
+      return;
+    }
+
+    toast.dismiss();
+    toast(
+      (t) => (
+        <div className="text-sm">
+          <p className="mb-2">
+            Are you sure you want to <b>Delete</b> this assignment?
+          </p>
+          <div className="flex justify-end gap-2">
+            <button
+              className="btn btn-sm btn-outline btn-secondary"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn btn-sm btn-error text-white"
+              onClick={async () => {
+                toast.dismiss(t.id);
+
+                toast.promise(
+                  axios.delete(
+                    `http://localhost:3000/assignments/${assignment._id}`
+                  ),
+                  {
+                    loading: "Deleting assignment...",
+                    success: () => {
+                      setAssignments((prev) =>
+                        prev.filter((a) => a._id !== assignment._id)
+                      );
+                      return "Assignment deleted successfully!";
+                    },
+                    error: "Failed to delete assignment.",
+                  }
+                );
+              }}
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      ),
+      { id: `delete-confirm-${assignment._id}` }
+    );
+  };
 
   return (
     <div className="bg-base-200 rounded flex flex-col justify-between min-h-[300px] hover:shadow-lg transition duration-300">
@@ -64,7 +115,7 @@ const AssignmentCard = ({ assignment }) => {
 
           <button
             onClick={handleDeleteAssignment}
-            className="btn btn-sm btn-outline btn-secondary"
+            className="btn btn-sm btn-error text-white"
           >
             Delete
           </button>
