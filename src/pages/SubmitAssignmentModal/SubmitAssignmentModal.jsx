@@ -89,7 +89,7 @@ const SubmitAssignmentModal = ({ assignmentId, onClose, onSuccessSubmit }) => {
               className="btn bg-secondary text-white"
               disabled={submitting}
             >
-              {submitting ? "Submitting..." : "Submit"}
+              {submitting ? "Submitting" : "Submit"}
             </button>
           </div>
         </form>

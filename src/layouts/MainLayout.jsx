@@ -33,6 +33,9 @@ const MainLayout = () => {
       </footer>
 
       <Toaster
+        containerStyle={{
+          top: 80,
+        }}
         toastOptions={{
           style: {
             background: theme === "dark" ? "#f3f4f6" : "#1f2937",
