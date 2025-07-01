@@ -107,7 +107,8 @@ const AssignmentDetails = () => {
         {showModal && (
           <SubmitAssignmentModal
             assignmentId={assignment._id}
-            onClose={() => {
+            onClose={() => setShowModal(false)}
+            onSuccessSubmit={() => {
               setShowModal(false);
               setIsSubmitted(true);
             }}

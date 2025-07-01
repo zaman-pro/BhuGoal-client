@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
-const SubmitAssignmentModal = ({ assignmentId, onClose }) => {
+const SubmitAssignmentModal = ({ assignmentId, onClose, onSuccessSubmit }) => {
   const { user } = useAuth();
   const [submitting, setSubmitting] = useState(false);
 
@@ -29,8 +29,6 @@ const SubmitAssignmentModal = ({ assignmentId, onClose }) => {
       status: "pending",
     };
 
-    console.log(submissionData);
-
     setSubmitting(true);
     toast.dismiss();
 
@@ -40,7 +38,7 @@ const SubmitAssignmentModal = ({ assignmentId, onClose }) => {
         {
           loading: "Submitting assignment...",
           success: () => {
-            onClose();
+            onSuccessSubmit();
             return "Assignment submitted!";
           },
           error: "Failed to submit assignment.",
