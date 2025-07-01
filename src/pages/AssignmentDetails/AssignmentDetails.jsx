@@ -111,6 +111,7 @@ const AssignmentDetails = () => {
             onSuccessSubmit={() => {
               setShowModal(false);
               setIsSubmitted(true);
+              navigate("/my-attempted-assignments");
             }}
           />
         )}
