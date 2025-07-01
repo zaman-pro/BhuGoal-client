@@ -8,6 +8,7 @@ import CreateAssignment from "../pages/CreateAssignments/CreateAssignment";
 import MyAttemptedAssignments from "../pages/MyAttemptedAssignments/MyAttemptedAssignments";
 import PrivateRoute from "../contexts/AuthContext/PrivateRoute";
 import UpdateAssignment from "../pages/UpdateAssignment/UpdateAssignment";
+import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UpdateAssignment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/assignment-details/:id",
+        element: (
+          <PrivateRoute>
+            <AssignmentDetails />
           </PrivateRoute>
         ),
       },

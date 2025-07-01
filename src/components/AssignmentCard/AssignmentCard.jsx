@@ -118,11 +118,11 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
           </button>
 
           <Link
-            to={`/view/${assignment._id}`}
+            to={`/assignment-details/${assignment._id}`}
             className="btn btn-sm btn-outline btn-secondary"
           >
-            <FiEye size={16} />
-            {/* View */}
+            {/* <FiEye size={16} /> */}
+            View
           </Link>
 
           <button
