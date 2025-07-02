@@ -22,15 +22,10 @@ const Assignments = () => {
 
   return (
     <div className="mb-3 lg:mb-6">
-      {/* assignments title */}
-      <h2 className="text-3xl font-bold mb-3 md:mb-6 text-center text-secondary leading-tight">
-        Assignments
-      </h2>
-
       {/* conditional render  */}
       {assignments.length === 0 ? (
-        <div className="flex flex-col items-center gap-5">
-          <p className="text-xl md:text-2xl text-primary p-4 lg:p-5 rounded bg-base-200">
+        <div className="flex flex-col items-center gap-5 mb-3 lg:mb-6 w-full bg-base-200 p-4 lg:p-5">
+          <p className="text-center text-lg text-primary rounded">
             No Assignment Found
           </p>
 
@@ -38,7 +33,7 @@ const Assignments = () => {
             to="/create-assignment"
             className="btn bg-secondary/90 text-white"
           >
-            Create Assignment
+            Let's Create
           </Link>
         </div>
       ) : (

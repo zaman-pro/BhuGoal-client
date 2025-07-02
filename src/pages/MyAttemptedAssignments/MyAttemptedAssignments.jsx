@@ -46,13 +46,13 @@ const MyAttemptedAssignments = () => {
 
   if (combined.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-5 mb-3 lg:mb-6">
-        <p className="text-xl md:text-2xl text-primary p-4 lg:p-5 rounded bg-base-200">
+      <div className="flex flex-col items-center gap-5 mb-3 lg:mb-6 w-full bg-base-200 p-4 lg:p-5">
+        <p className="text-center text-lg text-primary rounded">
           No Submission Yet
         </p>
 
         <Link to="/assignments" className="btn bg-secondary/90 text-white">
-          Explore Assignment
+          Let's Explore
         </Link>
       </div>
     );

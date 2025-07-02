@@ -51,7 +51,7 @@ const PendingAssignments = () => {
     <div className="mb-3 lg:mb-6">
       {combined.length === 0 ? (
         <p className="text-center text-lg text-primary bg-base-200 p-4 rounded">
-          No pending submissions found.
+          No pending found.
         </p>
       ) : (
         <AssignmentTable
