@@ -84,10 +84,9 @@ const AssignmentTable = ({ submissions, isSubmitted, onGiveMark }) => {
                       <button
                         onClick={() => {
                           if (submission.userEmail === user.email) {
-                            return toast.error(
-                              "You can't mark your own assignment!",
-                              { id: "ownAssignment-error" }
-                            );
+                            return toast.error("Can't grade yourself!", {
+                              id: "ownAssignment-error",
+                            });
                           }
                           onGiveMark?.(submission);
                         }}
