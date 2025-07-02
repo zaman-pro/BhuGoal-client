@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import AssignmentTable from "../../components/AssignmentTable/AssignmentTable";
+import AssignmentActionModal from "../../components/AssignmentActionModal/AssignmentActionModal";
 
 const PendingAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
 
   useEffect(() => {
     setDataLoading(true);
 
-    // Fetch only pending submissions
+    // fetch only pending submissions
     axios("http://localhost:3000/submissions?status=pending")
       .then((res) => {
         setSubmissions(res.data);
@@ -24,29 +26,49 @@ const PendingAssignments = () => {
       .finally(() => setDataLoading(false));
   }, []);
 
-  const pendingSubmissions = submissions.map((submission) => {
-    const assignment = assignments.find(
-      (a) => a._id === submission.assignmentId
-    );
+  const combined = submissions.map((sub) => {
+    const assignment = assignments.find((a) => a._id === sub.assignmentId);
     return {
-      ...submission,
+      ...sub,
       assignmentDetails: assignment,
     };
   });
 
-  if (dataLoading) return <Loading />;
+  const handleSuccessMark = () => {
+    setSelectedSubmission(null);
 
-  if (pendingSubmissions.length === 0) {
-    return (
-      <div className="text-center text-lg text-primary bg-base-200 p-4 rounded">
-        No pending submissions found.
-      </div>
-    );
-  }
+    // refresh pending
+    setDataLoading(true);
+    axios("http://localhost:3000/submissions?status=pending")
+      .then((res) => setSubmissions(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setDataLoading(false));
+  };
+
+  if (dataLoading) return <Loading />;
 
   return (
     <div className="mb-3 lg:mb-6">
-      <AssignmentTable submissions={pendingSubmissions} isSubmitted={false} />
+      {combined.length === 0 ? (
+        <p className="text-center text-lg text-primary bg-base-200 p-4 rounded">
+          No pending submissions found.
+        </p>
+      ) : (
+        <AssignmentTable
+          submissions={combined}
+          isSubmitted={false}
+          onGiveMark={(submission) => setSelectedSubmission(submission)}
+        />
+      )}
+
+      {selectedSubmission && (
+        <AssignmentActionModal
+          mode="mark"
+          submissionData={selectedSubmission}
+          onClose={() => setSelectedSubmission(null)}
+          onSuccessMark={handleSuccessMark}
+        />
+      )}
     </div>
   );
 };

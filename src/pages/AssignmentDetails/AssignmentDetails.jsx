@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import Loading from "../Loading/Loading";
-import SubmitAssignmentModal from "../SubmitAssignmentModal/SubmitAssignmentModal";
+import AssignmentActionModal from "../../components/AssignmentActionModal/AssignmentActionModal";
 import useAuth from "../../hooks/useAuth";
 import { FaCheckCircle } from "react-icons/fa";
 
@@ -103,7 +103,8 @@ const AssignmentDetails = () => {
         </button>
 
         {showModal && (
-          <SubmitAssignmentModal
+          <AssignmentActionModal
+            mode="submit"
             assignmentId={assignment._id}
             onClose={() => setShowModal(false)}
             onSuccessSubmit={() => {

@@ -31,7 +31,7 @@ const MyAttemptedAssignments = () => {
   }, [user]);
 
   // combine submission data with assignment data
-  const userAssignments = submissions.map((submission) => {
+  const combined = submissions.map((submission) => {
     const assignment = assignments.find(
       (a) => a._id === submission.assignmentId
     );
@@ -44,7 +44,7 @@ const MyAttemptedAssignments = () => {
   // data fetch loading
   if (dataLoading) return <Loading />;
 
-  if (userAssignments.length === 0) {
+  if (combined.length === 0) {
     return (
       <div className="flex flex-col items-center gap-5 mb-3 lg:mb-6">
         <p className="text-xl md:text-2xl text-primary p-4 lg:p-5 rounded bg-base-200">
@@ -60,7 +60,7 @@ const MyAttemptedAssignments = () => {
 
   return (
     <div className="mb-3 lg:mb-6">
-      <AssignmentTable submissions={userAssignments} isSubmitted={true} />
+      <AssignmentTable submissions={combined} isSubmitted={true} />
     </div>
   );
 };

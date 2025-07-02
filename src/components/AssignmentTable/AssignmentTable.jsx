@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
-const AssignmentTable = ({ submissions, isSubmitted }) => {
+const AssignmentTable = ({ submissions, isSubmitted, onGiveMark }) => {
+  const { user } = useAuth();
   return (
     <div>
       <table className="table w-full text-sm md:text-base">
@@ -78,7 +81,18 @@ const AssignmentTable = ({ submissions, isSubmitted }) => {
                       {submission.userName || submission.userEmail}
                     </td>
                     <td className="hidden lg:table-cell">
-                      <button className="btn bg-secondary/80 hover:bg-accent text-white">
+                      <button
+                        onClick={() => {
+                          if (submission.userEmail === user.email) {
+                            return toast.error(
+                              "You can't mark your own assignment!",
+                              { id: "ownAssignment-error" }
+                            );
+                          }
+                          onGiveMark?.(submission);
+                        }}
+                        className="btn bg-secondary/80 hover:bg-accent text-white"
+                      >
                         Give Mark
                       </button>
                     </td>
