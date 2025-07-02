@@ -13,6 +13,7 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
     }
     return new Date();
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -39,12 +40,22 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
     }
 
     // validate marks
-    const marksNumber = parseInt(assignmentData.marks, 10);
+    const marksNumber = parseInt(assignmentData.marks);
     if (isNaN(marksNumber) || marksNumber < 1) {
       toast.dismiss();
-      return toast.error("Marks must be at least 1", { id: "marks-error" });
+      return toast.error("Marks must be a number and at least 1", {
+        id: "marks-error",
+      });
     }
     assignmentData.marks = marksNumber;
+
+    // validate description length
+    if (assignmentData.description.trim().length < 20) {
+      toast.dismiss();
+      return toast.error("Description must be at least 20 characters", {
+        id: "desc-error",
+      });
+    }
 
     // check due date is not in the past
     if (!isUpdateAssignment) {
@@ -138,7 +149,7 @@ const AssignmentForm = ({ assignment, isUpdateAssignment, onSubmit }) => {
           <fieldset className="fieldset">
             <label className="label text-sm font-semibold">Marks</label>
             <input
-              type="text"
+              type="number"
               name="marks"
               placeholder="Marks"
               className="input focus:outline-none w-full"
