@@ -40,7 +40,9 @@ const AuthProvider = ({ children }) => {
   };
 
   // password validate
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+  const passwordRegex = new RegExp(
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_\\-+=\\[\\]{};':\"\\\\|,.<>\\/?]).{6,}$"
+  );
 
   // update user
   const updateUser = (updatedData) => {

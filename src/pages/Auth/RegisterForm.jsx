@@ -31,7 +31,7 @@ const RegisterForm = () => {
 
     if (!passwordRegex.test(password)) {
       toast.dismiss();
-      return toast.error("Use at least 6 letters with upper & lower case", {
+      return toast.error("6+ letters with upper, lower & special characters", {
         id: "password-error",
       });
     }
