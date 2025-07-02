@@ -74,7 +74,9 @@ const AssignmentTable = ({ submissions, isSubmitted }) => {
                   </>
                 ) : (
                   <>
-                    <td className="hidden lg:table-cell">Examinee</td>
+                    <td className="hidden lg:table-cell">
+                      {submission.userName || submission.userEmail}
+                    </td>
                     <td className="hidden lg:table-cell">
                       <button className="btn bg-secondary/80 hover:bg-accent text-white">
                         Give Mark
