@@ -40,12 +40,10 @@ const AssignmentDetails = () => {
     if (!user?.email || !id) return;
 
     axios(
-      `http://localhost:3000/submissions?assignmentId=${id}&userEmail=${user.email}`
+      `http://localhost:3000/submissions/user/${user.email}/assignment/${id}`
     )
       .then((res) => {
-        if (res.data?.length > 0) {
-          setIsSubmitted(true);
-        }
+        setIsSubmitted(res.data.submitted);
       })
       .catch((err) => console.error(err))
       .finally(() => setCheckingSubmission(false));
