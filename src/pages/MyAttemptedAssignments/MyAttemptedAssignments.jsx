@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import AssignmentTable from "../../components/AssignmentTable/AssignmentTable";
-import axios from "axios";
 import Loading from "../Loading/Loading";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router";
+import api from "../../api/api";
 
 const MyAttemptedAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -16,12 +16,12 @@ const MyAttemptedAssignments = () => {
     setDataLoading(true);
 
     // fetch user's submissions
-    axios(`http://localhost:3000/submissions?userEmail=${user?.email}`)
+    api(`/submissions?userEmail=${user?.email}`)
       .then((res) => {
         setSubmissions(res.data);
 
         // fetch all assignments to get details
-        return axios("http://localhost:3000/assignments");
+        return api("/assignments");
       })
       .then((res) => {
         setAssignments(res.data);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import api from "../../api/api";
 
 const AssignmentActionModal = ({
   mode = "submit",
@@ -42,7 +42,7 @@ const AssignmentActionModal = ({
       toast.dismiss();
 
       toast
-        .promise(axios.post("http://localhost:3000/submissions", data), {
+        .promise(api.post("/submissions", data), {
           loading: "Submitting...",
           success: () => {
             onSuccessSubmit?.();
@@ -72,20 +72,14 @@ const AssignmentActionModal = ({
       toast.dismiss();
 
       toast
-        .promise(
-          axios.patch(
-            `http://localhost:3000/submissions/${submissionData._id}`,
-            update
-          ),
-          {
-            loading: "Marking...",
-            success: () => {
-              onSuccessMark?.();
-              return "Assignment marked!";
-            },
-            error: "Failed to mark assignment",
-          }
-        )
+        .promise(api.patch(`/submissions/${submissionData._id}`, update), {
+          loading: "Marking...",
+          success: () => {
+            onSuccessMark?.();
+            return "Assignment marked!";
+          },
+          error: "Failed to mark assignment",
+        })
         .finally(() => setLoading(false));
     }
   };

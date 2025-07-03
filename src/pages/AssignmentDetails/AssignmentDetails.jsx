@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import axios from "axios";
 import Loading from "../Loading/Loading";
 import AssignmentActionModal from "../../components/AssignmentActionModal/AssignmentActionModal";
 import useAuth from "../../hooks/useAuth";
 import { FaCheckCircle } from "react-icons/fa";
+import api from "../../api/api";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
@@ -29,7 +29,7 @@ const AssignmentDetails = () => {
   // fetch assignment details
   useEffect(() => {
     setDataLoading(true);
-    axios(`http://localhost:3000/assignments/${id}`)
+    api(`/assignments/${id}`)
       .then((res) => setAssignment(res.data))
       .catch((err) => console.error(err))
       .finally(() => setDataLoading(false));
@@ -39,9 +39,7 @@ const AssignmentDetails = () => {
   useEffect(() => {
     if (!user?.email || !id) return;
 
-    axios(
-      `http://localhost:3000/submissions/user/${user.email}/assignment/${id}`
-    )
+    api(`/submissions/user/${user.email}/assignment/${id}`)
       .then((res) => {
         setIsSubmitted(res.data.submitted);
       })

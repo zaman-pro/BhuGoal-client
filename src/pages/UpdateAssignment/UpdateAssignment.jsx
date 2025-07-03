@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import axios from "axios";
 import toast from "react-hot-toast";
 import AssignmentForm from "../../components/AssignmentForm/AssignmentForm";
 import Loading from "../Loading/Loading";
+import api from "../../api/api";
 
 const UpdateAssignment = () => {
   const { id } = useParams();
@@ -13,8 +13,7 @@ const UpdateAssignment = () => {
 
   // fetch by id
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/assignments/${id}`)
+    api(`/assignments/${id}`)
       .then((res) => {
         setAssignment(res.data);
         setDataLoading(false);
@@ -32,8 +31,8 @@ const UpdateAssignment = () => {
     toast.dismiss();
     toast.loading("Updating assignment", { id: toastId });
 
-    axios
-      .patch(`http://localhost:3000/assignments/${id}`, updatedData)
+    api
+      .patch(`/assignments/${id}`, updatedData)
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           toast.success("Updated successfully", { id: toastId });

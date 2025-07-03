@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { FiEdit, FiEye, FiTrash2, FiX, FiCheck } from "react-icons/fi";
+import api from "../../api/api";
 
 const AssignmentCard = ({ assignment, setAssignments }) => {
   const { user } = useAuth();
@@ -51,9 +51,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
                 toast.dismiss(t.id);
 
                 toast.promise(
-                  axios.delete(
-                    `http://localhost:3000/assignments/${assignment._id}`
-                  ),
+                  api.delete(`/assignments/${assignment._id}`),
                   {
                     loading: "Deleting assignment...",
                     success: () => {

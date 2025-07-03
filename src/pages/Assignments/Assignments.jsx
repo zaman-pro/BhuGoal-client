@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
 import AssignmentCard from "../../components/AssignmentCard/AssignmentCard";
 import { Link } from "react-router";
 import Loading from "../Loading/Loading";
 import { FiSearch } from "react-icons/fi";
+import api from "../../api/api";
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
@@ -24,7 +24,7 @@ const Assignments = () => {
     if (difficulty) params.difficultyLevel = difficulty;
     if (search.trim()) params.search = search.trim();
 
-    axios("http://localhost:3000/assignments", { params })
+    api("/assignments", { params })
       .then((res) => {
         setAssignments(res.data);
       })

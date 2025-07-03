@@ -1,21 +1,17 @@
 import React from "react";
 import AssignmentForm from "../../components/AssignmentForm/AssignmentForm";
-import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../../api/api";
 
 const CreateAssignment = () => {
   const handleCreateAssignment = (assignmentData) => {
-    console.log(assignmentData);
-
     const toastId = "createToast";
     toast.dismiss();
     toast.loading("Creating", { id: toastId });
 
-    axios
-      .post("http://localhost:3000/assignments", assignmentData)
+    api
+      .post("/assignments", assignmentData)
       .then((res) => {
-        console.log(res.data);
-
         if (!res.data.insertedId) {
           toast.error("Creation failed", { id: toastId });
         }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Loading from "../Loading/Loading";
 import AssignmentTable from "../../components/AssignmentTable/AssignmentTable";
 import AssignmentActionModal from "../../components/AssignmentActionModal/AssignmentActionModal";
+import api from "../../api/api";
 
 const PendingAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -14,10 +14,10 @@ const PendingAssignments = () => {
     setDataLoading(true);
 
     // fetch only pending submissions
-    axios("http://localhost:3000/submissions?status=pending")
+    api("/submissions?status=pending")
       .then((res) => {
         setSubmissions(res.data);
-        return axios("http://localhost:3000/assignments");
+        return api("/assignments");
       })
       .then((res) => {
         setAssignments(res.data);
@@ -39,7 +39,7 @@ const PendingAssignments = () => {
 
     // refresh pending
     setDataLoading(true);
-    axios("http://localhost:3000/submissions?status=pending")
+    api("/submissions?status=pending")
       .then((res) => setSubmissions(res.data))
       .catch((err) => console.error(err))
       .finally(() => setDataLoading(false));
