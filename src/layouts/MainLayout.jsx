@@ -34,7 +34,7 @@ const MainLayout = () => {
 
       <Toaster
         containerStyle={{
-          top: 80,
+          top: 50,
         }}
         toastOptions={{
           style: {

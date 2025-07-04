@@ -33,15 +33,17 @@ const MyAttemptedAssignments = () => {
   }, [user, axiosSecure]);
 
   // combine submission data with assignment data
-  const combined = submissions.map((submission) => {
-    const assignment = assignments.find(
-      (a) => a._id === submission.assignmentId
-    );
-    return {
-      ...submission,
-      assignmentDetails: assignment,
-    };
-  });
+  const combined = submissions
+    .map((submission) => {
+      const assignment = assignments.find(
+        (a) => a._id === submission.assignmentId
+      );
+      return {
+        ...submission,
+        assignmentDetails: assignment,
+      };
+    })
+    .filter((item) => item.assignmentDetails !== undefined);
 
   // data fetch loading
   if (dataLoading) return <Loading />;

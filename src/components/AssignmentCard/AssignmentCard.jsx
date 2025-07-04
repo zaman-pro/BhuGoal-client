@@ -82,7 +82,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
   };
 
   return (
-    <div className="bg-base-200 rounded flex flex-col justify-between min-h-[300px] hover:shadow-lg">
+    <div className="bg-base-200 rounded flex flex-col justify-between min-h-[300px] hover:shadow-lg shadow-accent">
       {/* card image */}
       <div className="bg-base-100 w-full h-32">
         <img

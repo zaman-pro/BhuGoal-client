@@ -28,13 +28,17 @@ const PendingAssignments = () => {
       .finally(() => setDataLoading(false));
   }, [axiosSecure]);
 
-  const combined = submissions.map((sub) => {
-    const assignment = assignments.find((a) => a._id === sub.assignmentId);
-    return {
-      ...sub,
-      assignmentDetails: assignment,
-    };
-  });
+  const combined = submissions
+    .map((submission) => {
+      const assignment = assignments.find(
+        (a) => a._id === submission.assignmentId
+      );
+      return {
+        ...submission,
+        assignmentDetails: assignment,
+      };
+    })
+    .filter((item) => item.assignmentDetails !== undefined);
 
   const handleSuccessMark = () => {
     setSelectedSubmission(null);

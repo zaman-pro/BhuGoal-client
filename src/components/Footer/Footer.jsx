@@ -9,7 +9,7 @@ const Footer = () => {
   const showAuthLinks = !user && location.pathname !== "/auth";
 
   return (
-    <div className="bg-secondary/10 space-y-5 md:space-y-0">
+    <div className="bg-secondary/10 space-y-5 md:space-y-0 pt-5">
       <footer className="flex flex-col md:flex-row justify-between md:items-start mx-auto md:py-10 gap-10 w-11/12">
         <div className="space-y-5">
           <a className="text-4xl text-secondary font-bold">BhuGoal</a>

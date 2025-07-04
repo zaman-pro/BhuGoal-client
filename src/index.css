@@ -5,13 +5,13 @@
   themes: light --default, dark;
 }
 
-/* @plugin "daisyui/theme" {
+@plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #81c784;
-  --color-secondary: #2e7d32;
-  --color-accent: #2e7d32;
-} */
+  --color-primary: #034a86;
+  --color-secondary: #066ac9;
+  --color-accent: #f4a261;
+}
 
 * {
   font-family: "Poppins", sans-serif;
