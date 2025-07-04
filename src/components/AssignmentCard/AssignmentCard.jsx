@@ -3,12 +3,13 @@ import { Link, useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
 import { FiEdit, FiEye, FiTrash2, FiX, FiCheck } from "react-icons/fi";
-import api from "../../api/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AssignmentCard = ({ assignment, setAssignments }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const isCreator = user?.email === assignment?.userEmail;
+  const axiosSecure = useAxiosSecure();
 
   //   update handler
   const handleUpdateAssignment = () => {
@@ -51,7 +52,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
                 toast.dismiss(t.id);
 
                 toast.promise(
-                  api.delete(`/assignments/${assignment._id}`),
+                  axiosSecure.delete(`/assignments/${assignment._id}`),
                   {
                     loading: "Deleting assignment...",
                     success: () => {
@@ -81,7 +82,7 @@ const AssignmentCard = ({ assignment, setAssignments }) => {
   };
 
   return (
-    <div className="bg-base-200 rounded flex flex-col justify-between min-h-[300px] hover:shadow-lg transition duration-300">
+    <div className="bg-base-200 rounded flex flex-col justify-between min-h-[300px] hover:shadow-lg">
       {/* card image */}
       <div className="bg-base-100 w-full h-32">
         <img

@@ -3,18 +3,20 @@ import Loading from "../Loading/Loading";
 import AssignmentTable from "../../components/AssignmentTable/AssignmentTable";
 import AssignmentActionModal from "../../components/AssignmentActionModal/AssignmentActionModal";
 import api from "../../api/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PendingAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     setDataLoading(true);
 
     // fetch only pending submissions
-    api("/submissions?status=pending")
+    axiosSecure("/submissions?status=pending")
       .then((res) => {
         setSubmissions(res.data);
         return api("/assignments");
@@ -24,7 +26,7 @@ const PendingAssignments = () => {
       })
       .catch((err) => console.error(err))
       .finally(() => setDataLoading(false));
-  }, []);
+  }, [axiosSecure]);
 
   const combined = submissions.map((sub) => {
     const assignment = assignments.find((a) => a._id === sub.assignmentId);
@@ -39,7 +41,7 @@ const PendingAssignments = () => {
 
     // refresh pending
     setDataLoading(true);
-    api("/submissions?status=pending")
+    axiosSecure("/submissions?status=pending")
       .then((res) => setSubmissions(res.data))
       .catch((err) => console.error(err))
       .finally(() => setDataLoading(false));
@@ -48,7 +50,7 @@ const PendingAssignments = () => {
   if (dataLoading) return <Loading />;
 
   return (
-    <div className="mb-3 lg:mb-6">
+    <div className="mb-3 lg:mb-6 min-h-screen">
       {combined.length === 0 ? (
         <p className="text-center text-lg text-primary bg-base-200 p-4 rounded">
           No pending found.

@@ -3,17 +3,18 @@ import { useNavigate, useParams } from "react-router";
 import toast from "react-hot-toast";
 import AssignmentForm from "../../components/AssignmentForm/AssignmentForm";
 import Loading from "../Loading/Loading";
-import api from "../../api/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const UpdateAssignment = () => {
   const { id } = useParams();
   const [assignment, setAssignment] = useState(null);
   const [dataLoading, setDataLoading] = useState(true);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   // fetch by id
   useEffect(() => {
-    api(`/assignments/${id}`)
+    axiosSecure(`/assignments/${id}`)
       .then((res) => {
         setAssignment(res.data);
         setDataLoading(false);
@@ -24,14 +25,14 @@ const UpdateAssignment = () => {
         toast.error("Failed to load assignment");
         setDataLoading(false);
       });
-  }, [id]);
+  }, [id, axiosSecure]);
 
   const handleUpdateAssignment = (updatedData) => {
     const toastId = "updateToast";
     toast.dismiss();
     toast.loading("Updating assignment", { id: toastId });
 
-    api
+    axiosSecure
       .patch(`/assignments/${id}`, updatedData)
       .then((res) => {
         if (res.data.modifiedCount > 0) {

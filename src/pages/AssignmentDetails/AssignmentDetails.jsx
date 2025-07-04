@@ -4,9 +4,10 @@ import Loading from "../Loading/Loading";
 import AssignmentActionModal from "../../components/AssignmentActionModal/AssignmentActionModal";
 import useAuth from "../../hooks/useAuth";
 import { FaCheckCircle } from "react-icons/fa";
-import api from "../../api/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AssignmentDetails = () => {
+  const axiosSecure = useAxiosSecure();
   const { id } = useParams();
   const { user } = useAuth();
 
@@ -29,23 +30,23 @@ const AssignmentDetails = () => {
   // fetch assignment details
   useEffect(() => {
     setDataLoading(true);
-    api(`/assignments/${id}`)
+    axiosSecure(`/assignments/${id}`)
       .then((res) => setAssignment(res.data))
       .catch((err) => console.error(err))
       .finally(() => setDataLoading(false));
-  }, [id]);
+  }, [id, axiosSecure]);
 
   // check if already submitted
   useEffect(() => {
     if (!user?.email || !id) return;
 
-    api(`/submissions/user/${user.email}/assignment/${id}`)
+    axiosSecure(`/submissions/user/${user.email}/assignment/${id}`)
       .then((res) => {
         setIsSubmitted(res.data.submitted);
       })
       .catch((err) => console.error(err))
       .finally(() => setCheckingSubmission(false));
-  }, [user?.email, id]);
+  }, [user?.email, id, axiosSecure]);
 
   if (dataLoading || checkingSubmission) return <Loading />;
   if (!assignment) return <p>Assignment not found.</p>;

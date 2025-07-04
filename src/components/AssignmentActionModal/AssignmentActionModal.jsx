@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
-import api from "../../api/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AssignmentActionModal = ({
   mode = "submit",
@@ -13,6 +13,8 @@ const AssignmentActionModal = ({
 }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+
+  const axiosSecure = useAxiosSecure();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +44,7 @@ const AssignmentActionModal = ({
       toast.dismiss();
 
       toast
-        .promise(api.post("/submissions", data), {
+        .promise(axiosSecure.post("/submissions", data), {
           loading: "Submitting...",
           success: () => {
             onSuccessSubmit?.();
@@ -72,14 +74,17 @@ const AssignmentActionModal = ({
       toast.dismiss();
 
       toast
-        .promise(api.patch(`/submissions/${submissionData._id}`, update), {
-          loading: "Marking...",
-          success: () => {
-            onSuccessMark?.();
-            return "Assignment marked!";
-          },
-          error: "Failed to mark assignment",
-        })
+        .promise(
+          axiosSecure.patch(`/submissions/${submissionData._id}`, update),
+          {
+            loading: "Marking...",
+            success: () => {
+              onSuccessMark?.();
+              return "Assignment marked!";
+            },
+            error: "Failed to mark assignment",
+          }
+        )
         .finally(() => setLoading(false));
     }
   };

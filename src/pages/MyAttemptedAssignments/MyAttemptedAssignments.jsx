@@ -4,19 +4,21 @@ import Loading from "../Loading/Loading";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router";
 import api from "../../api/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyAttemptedAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
 
   // data fetch
   useEffect(() => {
     setDataLoading(true);
 
     // fetch user's submissions
-    api(`/submissions?userEmail=${user?.email}`)
+    axiosSecure(`/submissions?userEmail=${user?.email}`)
       .then((res) => {
         setSubmissions(res.data);
 
@@ -28,7 +30,7 @@ const MyAttemptedAssignments = () => {
       })
       .catch((error) => console.log(error))
       .finally(() => setDataLoading(false));
-  }, [user]);
+  }, [user, axiosSecure]);
 
   // combine submission data with assignment data
   const combined = submissions.map((submission) => {
@@ -59,7 +61,7 @@ const MyAttemptedAssignments = () => {
   }
 
   return (
-    <div className="mb-3 lg:mb-6">
+    <div className="mb-3 lg:mb-6 min-h-screen">
       <AssignmentTable submissions={combined} isSubmitted={true} />
     </div>
   );

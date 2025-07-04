@@ -60,7 +60,7 @@ const Assignments = () => {
   if (dataLoading) return <Loading />;
 
   return (
-    <div className="mb-3 lg:mb-6">
+    <div className="mb-3 lg:mb-6 min-h-screen">
       {/* filter controls */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
         {/* difficulty Filter */}
