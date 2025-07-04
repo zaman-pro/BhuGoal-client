@@ -1,12 +1,52 @@
-# React + Vite
+# BhuGoal - Online Group Study Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Website:** [Visit BhuGoal](https://b11a11-bhugoal-zaman-pro.web.app/)  
+**Project Tagline:** _Connect. Assign. Grow._
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📚 Project Overview
 
-## Expanding the ESLint configuration
+**BhuGoal** is a full-stack, collaborative group-study platform designed to simplify academic collaboration among friends. Every registered user can create, complete, and grade assignments in a shared community. With real-time interaction and assignment tracking, BhuGoal makes studying together online easier and more organized.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🎯 Project Purpose
+
+- To enable friends and students to study and grow together through assignment-based collaboration.
+- To offer a digital space for creating and managing assignments across users.
+- To develop real-world team collaboration and grading systems in a full-stack web app.
+- To implement secure authentication, routing, and intuitive UI with modern web technologies.
+- To provide a responsive, theme-friendly experience for all devices.
+
+---
+
+## 🚀 Key Features
+
+- **User Authentication:** Secure login with Firebase using Email/Password and Google. Includes protected/private routes for personalized experience.
+- **Create & Manage Assignments:** Users can create assignments with details like difficulty, deadline, and description.
+- **Submit Assignments:** Users can submit work (e.g., Google Docs links) and leave notes for reviewers.
+- **Grading System:** Peers can view pending submissions, assign marks, and provide feedback. Submission status updates to "completed" after grading.
+- **Filter & Sort Options:** Easily filter assignments by difficulty or status.
+- **Theme Toggle:** Seamlessly switch between light and dark themes using `theme-change`.
+- **Animations & UX Enhancements:** Integrated smooth animations and alerts for a more dynamic experience.
+- **Fully Responsive Design:** Optimized for mobile, tablet, and desktop use.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Frontend:** React, React Router, Tailwind CSS, DaisyUI
+- **Backend:** Node.js, Express.js, MongoDB
+- **Authentication:** Firebase Auth & Firebase Admin SDK
+- **UI/UX:** Framer Motion, React Icons, SweetAlert2, React Tooltip, Swiper, React Datepicker, Hot Toast
+- **Deployment:** Firebase Hosting, Vercel (API)
+
+---
+
+## 💡 How to Contribute
+
+This is a learning-focused project, so feel free to fork, explore, or contribute ideas through issues or pull requests. Let's grow together!
+
+---
+
