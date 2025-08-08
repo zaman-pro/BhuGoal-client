@@ -44,9 +44,36 @@
 
 ---
 
-## 💡 How to Contribute
+To install dependencies separately, use:
 
-This is a learning-focused project, so feel free to fork, explore, or contribute ideas through issues or pull requests. Let's grow together!
+```sh
+npm install <package-name>
+```
+
+## Installation and Setup:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zaman-pro/BhuGoal-client.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd BhuGoal-client
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Configure environment variables:
+   - Add a `.env.local` file with necessary keys (e.g., firebase config keys).
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Contribution Guidelines:
+
+- Fork the repository and create a new branch for your feature.
+- Submit a pull request with detailed information about your changes.
 
 ---
-
