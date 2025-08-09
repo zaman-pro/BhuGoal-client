@@ -1,4 +1,5 @@
 import React from "react";
+import faqImg from "../../../assets/faq.svg";
 
 const faqData = [
   {
@@ -24,14 +25,14 @@ const Faq = () => {
   return (
     <div className="mb-5 md:mb-0">
       {/* faq section title */}
-      <h2 className="text-3xl lg:text-4xl font-bold text-center leading-tight">
+      <h2 className="text-3xl lg:text-4xl font-bold text-center leading-tight mb-5 lg:mb-0">
         Frequently Asked Questions
       </h2>
 
       <div className="flex gap-5 flex-col md:flex-row items-center justify-between">
         {/* faq left content*/}
         <div className="flex-1 h-[450px] flex items-center justify-center">
-          <img src="https://s14.gifyu.com/images/bHio0.png" alt="faq image" />
+          <img src={faqImg} alt="faq image" />
         </div>
 
         {/* faq right content */}

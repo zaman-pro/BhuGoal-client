@@ -1,5 +1,6 @@
 import React from "react";
 import { FaGooglePlay, FaApple } from "react-icons/fa";
+import platformImg from "../../../assets/platform.svg";
 
 const GetTheApp = () => {
   return (
@@ -40,8 +41,8 @@ const GetTheApp = () => {
 
       <div className="flex-1">
         <img
-          src="https://s14.gifyu.com/images/bHiD3.png"
-          alt="Hero"
+          src={platformImg}
+          alt="platform"
           className="w-full object-contain"
         />
       </div>

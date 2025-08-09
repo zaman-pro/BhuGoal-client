@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { motion } from "motion/react";
+import bannerImg from "../../../assets/banner.svg";
 
 const Banner = () => {
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -54,7 +55,7 @@ const Banner = () => {
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
         <img
-          src="https://s14.gifyu.com/images/bH4BP.png"
+          src={bannerImg}
           alt="Hero"
           className="w-full object-contain"
           onLoad={() => setImgLoaded(true)}

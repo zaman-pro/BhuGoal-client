@@ -1,17 +1,14 @@
 import React from "react";
 import { Link } from "react-router";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import featureImg from "../../../assets/feature.svg";
 
 const Feature = () => {
   return (
     <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-5">
       {/* feature image */}
       <div className="flex-1">
-        <img
-          src="https://s14.gifyu.com/images/bH6iD.png"
-          alt="Feature"
-          className="w-full object-contain"
-        />
+        <img src={featureImg} alt="Feature" className="w-full object-contain" />
       </div>
 
       {/* feature content */}
