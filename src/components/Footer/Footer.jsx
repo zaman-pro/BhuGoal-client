@@ -41,14 +41,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <h6 className="font-semibold">Legal & Resources</h6>
           <div className="mt-2 flex flex-col gap-1 text-sm">
             <NavLink to="/terms">Terms of Service</NavLink>
             <NavLink to="/privacy">Privacy Policy</NavLink>
             <NavLink to="/developer-resources">Developer Resources</NavLink>
           </div>
-        </div>
+        </div> */}
       </footer>
 
       <div className="border-t w-11/12 mx-auto"></div>

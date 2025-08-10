@@ -12,11 +12,13 @@ import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
 import FaqPage from "../pages/Faq/FaqPage";
 import About from "../pages/About/About";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import ErrorPage from "../pages/Error/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
