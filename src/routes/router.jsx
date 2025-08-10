@@ -11,6 +11,7 @@ import UpdateAssignment from "../pages/UpdateAssignment/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
 import FaqPage from "../pages/Faq/FaqPage";
 import About from "../pages/About/About";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         Component: About,
+      },
+      {
+        path: "/contact",
+        Component: ContactUs,
       },
       {
         path: "/pending-assignments",
