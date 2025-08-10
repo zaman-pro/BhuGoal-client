@@ -66,9 +66,9 @@ const TopSubjects = () => {
           <Link
             to="/assignments"
             key={i}
-            className="bg-base-200 p-4 rounded flex flex-col items-center justify-center hover:cursor-pointer"
+            className="bg-base-200 p-4 rounded flex flex-col items-center justify-center hover:cursor-pointer group shadow-xl shadow-base-300 hover:shadow-lg hover:shadow-accent hover:transition-shadow duration-300 ease-linear"
           >
-            <div className="bg-base-100 p-2 rounded-full mb-3">
+            <div className="bg-base-300 p-2 rounded-full mb-3 transition-transform duration-300 ease-linear group-hover:scale-110">
               <img
                 src={subject.img}
                 alt={subject.title}
