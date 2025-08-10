@@ -21,8 +21,8 @@ const NavLinks = ({ user, onLinkClick }) => {
       </li>
 
       <li>
-        <NavLink className="font-medium" to="/blogs" onClick={onLinkClick}>
-          Blogs
+        <NavLink className="font-medium" to="/faq" onClick={onLinkClick}>
+          FAQ
         </NavLink>
       </li>
 

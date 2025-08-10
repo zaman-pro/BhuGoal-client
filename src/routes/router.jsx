@@ -9,6 +9,7 @@ import MyAttemptedAssignments from "../pages/MyAttemptedAssignments/MyAttemptedA
 import PrivateRoute from "../contexts/AuthContext/PrivateRoute";
 import UpdateAssignment from "../pages/UpdateAssignment/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
+import FaqPage from "../pages/Faq/FaqPage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/assignments",
         Component: Assignments,
+      },
+      {
+        path: "/faq",
+        Component: FaqPage,
       },
       {
         path: "/pending-assignments",
