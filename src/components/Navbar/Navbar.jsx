@@ -237,7 +237,7 @@ const Navbar = () => {
                       </NavLink>
                     </li>
 
-                    <li>
+                    {/* <li>
                       <NavLink
                         className="font-medium"
                         to="/submitted-assignments"
@@ -245,7 +245,7 @@ const Navbar = () => {
                       >
                         Submitted Assignments
                       </NavLink>
-                    </li>
+                    </li> */}
 
                     <div onClick={handleLogout} className="text-secondary mt-1">
                       <button className="btn btn-sm btn-outline btn-secondary w-full">
