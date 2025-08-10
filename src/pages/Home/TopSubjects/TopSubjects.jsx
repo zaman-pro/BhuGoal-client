@@ -48,9 +48,17 @@ const TopSubjects = () => {
   return (
     <div>
       {/* top subjects title */}
-      <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-3 lg:mb-6 md:text-center">
-        Top Listed Subjects
-      </h2>
+
+      <div className="mb-3 lg:mb-6 text-center">
+        <h2 className="text-2xl lg:text-4xl font-bold leading-tight ">
+          Top Listed Subjects
+        </h2>
+
+        <small className="">
+          Browse popular subjects and connect with friends for group study
+          sessions.
+        </small>
+      </div>
 
       {/* top subjects cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

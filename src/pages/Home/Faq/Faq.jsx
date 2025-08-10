@@ -25,9 +25,14 @@ const Faq = () => {
   return (
     <div className="mb-5 md:mb-0">
       {/* faq section title */}
-      <h2 className="text-3xl lg:text-4xl font-bold text-center leading-tight mb-5 lg:mb-0">
-        Frequently Asked Questions
-      </h2>
+      <div className="mb-5 lg:mb-0 text-center">
+        <h2 className="text-2xl lg:text-4xl font-bold leading-tight">
+          Frequently Asked Questions
+        </h2>
+        <small>
+          Find clear answers to common questions about using BhuGoal.
+        </small>
+      </div>
 
       <div className="flex gap-5 flex-col md:flex-row items-center justify-between">
         {/* faq left content*/}

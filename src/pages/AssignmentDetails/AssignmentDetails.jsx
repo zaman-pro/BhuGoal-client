@@ -54,7 +54,7 @@ const AssignmentDetails = () => {
   return (
     <div className="mb-3 lg:mb-6 bg-base-200 p-4 rounded flex items-center justify-center flex-col gap-5">
       {isSubmitted && (
-        <p className="flex items-center gap-2 font-semibold text-success">
+        <p className="flex items-center gap-2 font-semibold text-success text-sm md:text-base">
           <FaCheckCircle />
           Assignment already submitted
         </p>
@@ -90,7 +90,9 @@ const AssignmentDetails = () => {
 
         <button
           onClick={handleButtonClick}
-          className={`btn ${isSubmitted ? "btn-success" : "btn-secondary"}`}
+          className={`btn ${
+            isSubmitted ? "btn-success text-white" : "btn-secondary"
+          }`}
         >
           {isSubmitted ? (
             <span className="flex items-center gap-2">

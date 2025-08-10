@@ -38,9 +38,16 @@ const Feedback = () => {
     <div>
       {/* section title */}
 
-      <h2 className="text-3xl lg:text-4xl font-bold leading-tight text-center mb-3 lg:mb-6">
-        Student Feedback
-      </h2>
+      <div className="mb-3 lg:mb-6 text-center">
+        <h2 className="text-2xl lg:text-4xl font-bold leading-tight">
+          Student Feedback
+        </h2>
+
+        <small>
+          Discover how students use BhuGoal to learn faster and achieve better
+          results.
+        </small>
+      </div>
 
       {/* swiper carousel */}
       <div className="relative group">

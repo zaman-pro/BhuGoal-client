@@ -13,7 +13,7 @@ const Feature = () => {
 
       {/* feature content */}
       <div className="flex-1">
-        <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-4">
+        <h2 className="text-2xl lg:text-4xl font-bold leading-tight mb-4">
           Core Features at a Glance
         </h2>
 
