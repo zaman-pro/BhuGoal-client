@@ -10,6 +10,7 @@ import PrivateRoute from "../contexts/AuthContext/PrivateRoute";
 import UpdateAssignment from "../pages/UpdateAssignment/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails/AssignmentDetails";
 import FaqPage from "../pages/Faq/FaqPage";
+import About from "../pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/faq",
         Component: FaqPage,
+      },
+      {
+        path: "/about",
+        Component: About,
       },
       {
         path: "/pending-assignments",
