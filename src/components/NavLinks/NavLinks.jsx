@@ -20,17 +20,23 @@ const NavLinks = ({ user, onLinkClick }) => {
         </NavLink>
       </li>
 
-      {user && (
-        <li>
-          <NavLink
-            className="font-medium"
-            to="/pending-assignments"
-            onClick={onLinkClick}
-          >
-            Pending Assignments
-          </NavLink>
-        </li>
-      )}
+      <li>
+        <NavLink className="font-medium" to="/blogs" onClick={onLinkClick}>
+          Blogs
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink className="font-medium" to="/about" onClick={onLinkClick}>
+          About
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink className="font-medium" to="/contact" onClick={onLinkClick}>
+          Contact Us
+        </NavLink>
+      </li>
     </>
   );
 };

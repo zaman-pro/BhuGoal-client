@@ -92,7 +92,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar h-16 bg-base-100 shadow-md fixed z-50 border border-secondary/30 top-0 left-1/2 -translate-x-1/2 w-11/12 rounded-md px-4 lg:px-5">
+    <div className="navbar h-20 bg-base-100 fixed z-50 top-0 left-1/2 -translate-x-1/2 w-11/12 rounded-md px-4 lg:px-5 shadow-sm">
       <div className="navbar-start">
         <div className="relative md:hidden" ref={menuRef}>
           <button
@@ -177,13 +177,13 @@ const Navbar = () => {
                 tabIndex={0}
                 data-tooltip-id="user-tooltip"
                 data-tooltip-content={user?.displayName || "Guest"}
-                className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer flex items-center justify-center"
+                className="w-7 h-7 md:w-10 md:h-10 rounded-full overflow-hidden cursor-pointer flex items-center justify-center ring-1 ring-secondary"
                 onClick={() => setIsDropdownOpen((prev) => !prev)}
               >
                 {user?.photoURL ? (
                   <img
                     src={user.photoURL}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-full"
                     alt="User Avatar"
                   />
                 ) : (
@@ -196,7 +196,7 @@ const Navbar = () => {
                   <motion.ul
                     key="dropdown"
                     layout
-                    className="absolute right-0 mt-6 z-10 p-2 shadow menu menu-sm bg-base-100 rounded-box w-52 overflow-hidden will-change-transform"
+                    className="absolute right-0 mt-8 md:mt-6 z-10 p-2 shadow-lg menu menu-sm bg-base-100 rounded-box w-52 overflow-hidden will-change-transform"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -216,15 +216,42 @@ const Navbar = () => {
                         Create Assignment
                       </NavLink>
                     </li>
+
                     <li>
                       <NavLink
                         className="font-medium"
                         to="/my-attempted-assignments"
                         onClick={() => setIsDropdownOpen(false)}
                       >
-                        My Attempted Assignments
+                        Attempted Assignments
                       </NavLink>
                     </li>
+
+                    <li>
+                      <NavLink
+                        className="font-medium"
+                        to="/pending-assignments"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Pending Assignments
+                      </NavLink>
+                    </li>
+
+                    <li>
+                      <NavLink
+                        className="font-medium"
+                        to="/submitted-assignments"
+                        onClick={() => setIsDropdownOpen(false)}
+                      >
+                        Submitted Assignments
+                      </NavLink>
+                    </li>
+
+                    <div onClick={handleLogout} className="text-secondary mt-1">
+                      <button className="btn btn-sm btn-outline btn-secondary w-full">
+                        Logout
+                      </button>
+                    </div>
                   </motion.ul>
                 )}
               </AnimatePresence>
@@ -241,14 +268,6 @@ const Navbar = () => {
                   color: theme === "dark" ? "#111827" : "#f9fafb",
                 }}
               />
-            </div>
-
-            <div onClick={handleLogout} className="text-secondary">
-              <button className="hidden md:flex btn btn-outline btn-secondary">
-                Logout
-              </button>
-
-              <GrLogout size={25} className="md:hidden" />
             </div>
           </>
         ) : (
